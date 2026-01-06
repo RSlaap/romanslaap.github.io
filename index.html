@@ -107,7 +107,8 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(91,154,150,0.3);
+            border: 4px solid #5B9A96;
         }
 
         .about-text {
@@ -118,74 +119,206 @@
 
         h2 {
             font-size: 1.1rem;
-            color: #d4a574;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 30px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #d4a574;
+            border-bottom: 3px solid;
             font-weight: 600;
         }
 
-        .job {
-            margin-bottom: 35px;
-            padding-bottom: 35px;
-            border-bottom: 1px solid #e0e0e0;
+        /* Section-specific colors */
+        #about h2 {
+            color: #5B9A96;
+            border-bottom-color: #5B9A96;
         }
 
-        .job:last-child {
-            border-bottom: none;
+        #experience h2 {
+            color: #d4a574;
+            border-bottom-color: #d4a574;
         }
 
-        .job-header {
+        #education h2 {
+            color: #3D6B8C;
+            border-bottom-color: #3D6B8C;
+        }
+
+        #certifications h2 {
+            color: #A85E7B;
+            border-bottom-color: #A85E7B;
+        }
+
+        #skills h2 {
+            color: #7A9B76;
+            border-bottom-color: #7A9B76;
+        }
+
+        /* Logo Carousel Styles */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            padding: 40px 80px;
+        }
+
+        .logo-carousel {
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
+            gap: 30px;
+            overflow: hidden;
+            scroll-behavior: smooth;
         }
 
-        .job-title {
-            font-weight: 600;
-            color: #333;
-            font-size: 1.1rem;
+        .logo-item {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
         }
 
-        .job-date {
-            font-size: 0.9rem;
+        .logo-item:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-item:focus {
+            outline: 2px solid #d4a574;
+            outline-offset: 4px;
+        }
+
+        .logo-item .company-logo {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .logo-item:hover .company-logo {
+            box-shadow: 0 6px 20px rgba(212,165,116,0.3);
+        }
+
+        /* Carousel Navigation Arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            border: 2px solid #d4a574;
+            color: #d4a574;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .carousel-arrow:hover {
+            background-color: #d4a574;
+            color: white;
+            box-shadow: 0 4px 12px rgba(212,165,116,0.3);
+        }
+
+        .carousel-arrow.prev {
+            left: 10px;
+        }
+
+        .carousel-arrow.next {
+            right: 10px;
+        }
+
+        /* Popup/Modal Styles */
+        .job-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .job-popup-overlay.active {
+            opacity: 1;
+        }
+
+        .job-popup-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: scale(0.8) translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        .job-popup-overlay.active .job-popup-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
             color: #999;
-            white-space: nowrap;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
         }
 
-        .job-company {
+        .popup-close:hover {
+            color: #d4a574;
+        }
+
+        .popup-body h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .popup-body .job-date {
+            color: #999;
             font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .popup-body .job-company {
             color: #666;
             font-style: italic;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
         }
 
-        .job-description {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 12px;
-            line-height: 1.7;
-        }
-
-        .job ul {
+        .popup-body ul {
             list-style: none;
             padding-left: 0;
         }
 
-        .job li {
-            font-size: 0.95rem;
+        .popup-body li {
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             padding-left: 25px;
             position: relative;
             line-height: 1.7;
         }
 
-        .job li:before {
+        .popup-body li:before {
             content: "•";
             color: #d4a574;
             font-weight: bold;
@@ -204,7 +337,7 @@
             padding: 20px;
             background-color: #f8f9fa;
             border-radius: 8px;
-            border-left: 4px solid #d4a574;
+            border-left: 4px solid #3D6B8C;
         }
 
         .education-title {
@@ -236,7 +369,7 @@
             padding: 15px 20px;
             background-color: #f8f9fa;
             border-radius: 8px;
-            border-left: 4px solid #d4a574;
+            border-left: 4px solid #A85E7B;
         }
 
         .cert-name {
@@ -267,11 +400,11 @@
             padding: 25px;
             background-color: #f8f9fa;
             border-radius: 8px;
-            border-left: 4px solid #d4a574;
+            border-left: 4px solid #7A9B76;
         }
 
         .skill-category h3 {
-            color: #d4a574;
+            color: #7A9B76;
             font-size: 1rem;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -286,11 +419,11 @@
 
         .skill-tag {
             background-color: white;
-            color: #d4a574;
+            color: #7A9B76;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
-            border: 1px solid #d4a574;
+            border: 1px solid #7A9B76;
         }
 
         @media (max-width: 968px) {
@@ -342,10 +475,42 @@
                 letter-spacing: 2px;
             }
 
-            .job-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 5px;
+            .carousel-container {
+                padding: 30px 60px;
+            }
+
+            .logo-carousel {
+                gap: 20px;
+            }
+
+            .logo-item .company-logo {
+                width: 80px;
+                height: 80px;
+                padding: 8px;
+            }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-arrow.prev {
+                left: 5px;
+            }
+
+            .carousel-arrow.next {
+                right: 5px;
+            }
+
+            .job-popup-content {
+                padding: 30px 20px;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .popup-body h3 {
+                font-size: 1.3rem;
             }
 
             .nav-links {
@@ -396,100 +561,28 @@
         <section id="experience">
             <h2>Work Experience</h2>
 
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Machine Learning Engineering Consultant</span>
-                    <span class="job-date">April 2024 - Present</span>
+            <!-- Logo Carousel (dynamically loaded) -->
+            <div class="carousel-container">
+                <button class="carousel-arrow prev" aria-label="Previous">&larr;</button>
+                <button class="carousel-arrow next" aria-label="Next">&rarr;</button>
+                <div class="logo-carousel" id="logoCarousel">
+                    <!-- Logos loaded dynamically from JSON files -->
                 </div>
-                <p class="job-company">Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)</p>
-                <ul>
-                    <li>Built a LLM-based platform to share IKEA's wide array of knowledge sources with coworkers</li>
-                    <li>Designed platform's modular agent structure to easily connect different sources and make the information available to the coworkers within the stores</li>
-                    <li>Connected with stakeholders to identify, implement and connect new and existing knowledge bases</li>
-                    <li>Manage platform and underlying server infrastructure</li>
-                    <li>Evaluate and iteratively improved product results according to stakeholder needs</li>
-                    <li>Implemented CI/CD pipelines for continuous deployment</li>
-                </ul>
             </div>
 
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Machine Learning Engineering Consultant</span>
-                    <span class="job-date">May 2022 - March 2024</span>
-                </div>
-                <p class="job-company">Thoughtworks, Amsterdam</p>
-                <ul>
-                    <li>Engaged in all aspects of consultancy work including ML engineering development</li>
-                    <li>Built and presented proposals for new projects to prospective clients</li>
-                    <li>Coached and mentored team members</li>
-                    <li>Cultivated passionate communities within the ML and DS field</li>
-                </ul>
+            <!-- Hidden Job Data (dynamically loaded) -->
+            <div class="job-data-container" id="jobDataContainer" style="display: none;">
+                <!-- Job data loaded dynamically from JSON files -->
             </div>
 
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Machine Learning Engineer</span>
-                    <span class="job-date">April 2023 - 2023</span>
+            <!-- Popup Modal -->
+            <div class="job-popup-overlay" id="jobPopup" style="display: none;">
+                <div class="job-popup-content">
+                    <button class="popup-close" aria-label="Close">&times;</button>
+                    <div class="popup-body">
+                        <!-- Content injected here dynamically -->
+                    </div>
                 </div>
-                <p class="job-company">Mercedes-Benz (via Thoughtworks), Amsterdam</p>
-                <ul>
-                    <li>Designed and developed model architecture and ML infrastructure to improve pricing strategy</li>
-                    <li>Transformed a proof-of-concept into a mature production project on the cloud</li>
-                    <li>Implemented complete ML pipeline including data gathering, processing, modeling, automated retraining, monitoring, and visualization</li>
-                    <li>Maintained close communication with clients to meet their needs</li>
-                    <li>Applied strong development practices leading to robust and flexible codebase</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Machine Learning Engineer</span>
-                    <span class="job-date">October 2022 - February 2023</span>
-                </div>
-                <p class="job-company">Mondelez (via Thoughtworks)</p>
-                <ul>
-                    <li>Developed solutions to help product experts optimize recipes</li>
-                    <li>Combined generative adversarial architecture with expert input and test-panel data</li>
-                    <li>Enhanced models to incorporate chemical compound data for more specific recipe generation</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Data Scientist/Engineer</span>
-                    <span class="job-date">January 2021 - 2022</span>
-                </div>
-                <p class="job-company">Nationale Nederlanden, Den Haag</p>
-                <ul>
-                    <li>Implemented Data Science solutions for the Life and Pension Business unit</li>
-                    <li>Automated manual processes including contract data extraction</li>
-                    <li>Built deployment pipelines for continuous development</li>
-                    <li>Transformed raw data into accessible information through visualizations and dashboards</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Data Scientist</span>
-                    <span class="job-date">2020 - 2021</span>
-                </div>
-                <p class="job-company">Nationale Nederlanden, Den Haag</p>
-                <ul>
-                    <li>Led "Rating Engine" project, designing and developing infrastructure</li>
-                    <li>Created Azure Cloud-based end-to-end model and pricing management system</li>
-                    <li>Assisted pricing teams in making informed decisions on damage insurance price policies</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-title">Pricing Analyst</span>
-                    <span class="job-date">2019 - 2020</span>
-                </div>
-                <p class="job-company">Nationale Nederlanden, Den Haag</p>
-                <ul>
-                    <li>Built risk-premium, commercial pricing, and churn models for various insurance products</li>
-                </ul>
             </div>
         </section>
 
@@ -637,5 +730,244 @@
             </div>
         </section>
     </div>
+
+    <script>
+    (function() {
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadJobs();
+        });
+
+        async function loadJobs() {
+            try {
+                // Load the jobs list
+                const response = await fetch('jobs/jobs-list.json');
+                const jobsList = await response.json();
+
+                // Load each job file
+                const jobsData = await Promise.all(
+                    jobsList.map(jobFile => fetch(`jobs/${jobFile}.json`).then(r => r.json()))
+                );
+
+                // Build the carousel and data containers
+                buildCarousel(jobsData);
+                buildJobData(jobsData);
+
+                // Initialize carousel and popup functionality
+                initializeCarousel();
+                initializePopup();
+            } catch (error) {
+                console.error('Error loading jobs:', error);
+            }
+        }
+
+        function buildCarousel(jobsData) {
+            const carousel = document.getElementById('logoCarousel');
+
+            jobsData.forEach(job => {
+                const logoItem = document.createElement('div');
+                logoItem.className = 'logo-item';
+                logoItem.setAttribute('data-job-id', job.id);
+
+                const img = document.createElement('img');
+                img.src = job.logo;
+                img.alt = job.company || job.positions[0].company;
+                img.className = 'company-logo';
+
+                logoItem.appendChild(img);
+                carousel.appendChild(logoItem);
+            });
+        }
+
+        function buildJobData(jobsData) {
+            const container = document.getElementById('jobDataContainer');
+
+            jobsData.forEach(job => {
+                const jobDataDiv = document.createElement('div');
+                jobDataDiv.className = 'job-data';
+                jobDataDiv.id = job.id;
+
+                // Handle multiple positions (like NN) vs single position
+                if (job.positions) {
+                    job.positions.forEach((position, index) => {
+                        if (index > 0) {
+                            const hr = document.createElement('hr');
+                            hr.style.border = 'none';
+                            hr.style.borderTop = '2px solid #e0e0e0';
+                            hr.style.margin = '25px 0';
+                            jobDataDiv.appendChild(hr);
+                        }
+
+                        appendPositionContent(jobDataDiv, position);
+                    });
+                } else {
+                    appendPositionContent(jobDataDiv, job);
+                }
+
+                container.appendChild(jobDataDiv);
+            });
+        }
+
+        function appendPositionContent(container, position) {
+            const h3 = document.createElement('h3');
+            h3.textContent = position.title;
+            container.appendChild(h3);
+
+            const dateP = document.createElement('p');
+            dateP.className = 'job-date';
+            dateP.textContent = position.date;
+            container.appendChild(dateP);
+
+            const companyP = document.createElement('p');
+            companyP.className = 'job-company';
+            companyP.textContent = position.company;
+            container.appendChild(companyP);
+
+            const ul = document.createElement('ul');
+            position.responsibilities.forEach(resp => {
+                const li = document.createElement('li');
+                li.textContent = resp;
+                ul.appendChild(li);
+            });
+            container.appendChild(ul);
+        }
+
+        function initializeCarousel() {
+            const carousel = document.getElementById('logoCarousel');
+            const prevBtn = document.querySelector('.carousel-arrow.prev');
+            const nextBtn = document.querySelector('.carousel-arrow.next');
+            const logoItems = document.querySelectorAll('.logo-item');
+
+            // Create infinite loop by cloning logos
+            logoItems.forEach(function(logo) {
+                const clone = logo.cloneNode(true);
+                carousel.appendChild(clone);
+            });
+
+            // Re-select all logo items (including clones)
+            const allLogos = document.querySelectorAll('.logo-item');
+
+            allLogos.forEach(function(logo) {
+                logo.addEventListener('click', function() {
+                    const jobId = this.getAttribute('data-job-id');
+                    openPopup(jobId);
+                });
+
+                logo.setAttribute('role', 'button');
+                logo.setAttribute('tabindex', '0');
+                logo.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const jobId = this.getAttribute('data-job-id');
+                        openPopup(jobId);
+                    }
+                });
+            });
+
+            // Carousel Navigation (Infinite Loop)
+            const scrollAmount = 190; // Logo width (160px) + gap (30px)
+            const totalOriginalWidth = scrollAmount * logoItems.length;
+
+            function scrollCarousel(direction) {
+                if (direction === 'next') {
+                    carousel.scrollLeft += scrollAmount;
+                } else {
+                    carousel.scrollLeft -= scrollAmount;
+                }
+
+                // Check for loop-around after scroll animation
+                setTimeout(checkLoopAround, 150);
+            }
+
+            function checkLoopAround() {
+                // If scrolled past the end of original items, jump to beginning
+                if (carousel.scrollLeft >= totalOriginalWidth) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = carousel.scrollLeft - totalOriginalWidth;
+                    setTimeout(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    }, 50);
+                }
+
+                // If scrolled before the beginning, jump to end of original items
+                if (carousel.scrollLeft <= 0) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = totalOriginalWidth;
+                    setTimeout(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    }, 50);
+                }
+            }
+
+            prevBtn.addEventListener('click', function() {
+                scrollCarousel('prev');
+            });
+
+            nextBtn.addEventListener('click', function() {
+                scrollCarousel('next');
+            });
+
+            // Initialize carousel position
+            carousel.scrollLeft = 0;
+        }
+
+        function initializePopup() {
+            const popup = document.getElementById('jobPopup');
+            const popupBody = popup.querySelector('.popup-body');
+            const closeBtn = popup.querySelector('.popup-close');
+            const overlay = popup;
+
+            closeBtn.addEventListener('click', closePopup);
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closePopup();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && popup.style.display !== 'none') {
+                    closePopup();
+                }
+            });
+
+            function openPopup(jobId) {
+                const jobData = document.getElementById(jobId);
+                if (!jobData) return;
+
+                popupBody.innerHTML = jobData.innerHTML;
+
+                popup.style.display = 'flex';
+
+                popup.offsetHeight;
+
+                popup.classList.add('active');
+
+                document.body.style.overflow = 'hidden';
+
+                popup.setAttribute('role', 'dialog');
+                popup.setAttribute('aria-modal', 'true');
+
+                setTimeout(function() {
+                    closeBtn.focus();
+                }, 100);
+            }
+
+            function closePopup() {
+                popup.classList.remove('active');
+
+                setTimeout(function() {
+                    popup.style.display = 'none';
+                    popupBody.innerHTML = '';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            // Make openPopup accessible to event listeners
+            window.openPopup = openPopup;
+        }
+    })();
+    </script>
 </body>
 </html>

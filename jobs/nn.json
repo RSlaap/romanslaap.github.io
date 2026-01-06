@@ -1,0 +1,35 @@
+{
+  "id": "job-4",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/0/02/NN_Group_logo.jpeg",
+  "positions": [
+    {
+      "title": "Data Scientist/Engineer",
+      "date": "January 2021 - 2022",
+      "company": "Nationale Nederlanden, Den Haag",
+      "responsibilities": [
+        "Implemented Data Science solutions for the Life and Pension Business unit",
+        "Automated manual processes including contract data extraction",
+        "Built deployment pipelines for continuous development",
+        "Transformed raw data into accessible information through visualizations and dashboards"
+      ]
+    },
+    {
+      "title": "Data Scientist",
+      "date": "2020 - 2021",
+      "company": "Nationale Nederlanden, Den Haag",
+      "responsibilities": [
+        "Led \"Rating Engine\" project, designing and developing infrastructure",
+        "Created Azure Cloud-based end-to-end model and pricing management system",
+        "Assisted pricing teams in making informed decisions on damage insurance price policies"
+      ]
+    },
+    {
+      "title": "Pricing Analyst",
+      "date": "2019 - 2020",
+      "company": "Nationale Nederlanden, Den Haag",
+      "responsibilities": [
+        "Built risk-premium, commercial pricing, and churn models for various insurance products"
+      ]
+    }
+  ]
+}

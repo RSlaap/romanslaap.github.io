@@ -1,0 +1,15 @@
+{
+  "id": "job-0",
+  "title": "Machine Learning Engineering Consultant",
+  "date": "April 2024 - Present",
+  "company": "Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg",
+  "responsibilities": [
+    "Built a LLM-based platform to share IKEA's wide array of knowledge sources with coworkers",
+    "Designed platform's modular agent structure to easily connect different sources and make the information available to the coworkers within the stores",
+    "Connected with stakeholders to identify, implement and connect new and existing knowledge bases",
+    "Manage platform and underlying server infrastructure",
+    "Evaluate and iteratively improved product results according to stakeholder needs",
+    "Implemented CI/CD pipelines for continuous deployment"
+  ]
+}

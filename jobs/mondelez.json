@@ -1,0 +1,12 @@
+{
+  "id": "job-3",
+  "title": "Machine Learning Engineer",
+  "date": "October 2022 - February 2023",
+  "company": "Mondelez (via Thoughtworks)",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Mondelez_international_2012_logo.svg",
+  "responsibilities": [
+    "Developed solutions to help product experts optimize recipes",
+    "Combined generative adversarial architecture with expert input and test-panel data",
+    "Enhanced models to incorporate chemical compound data for more specific recipe generation"
+  ]
+}
