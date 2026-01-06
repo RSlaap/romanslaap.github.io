@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roman Slaap - Machine Learning Engineer & AI Consultant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        nav {
+            background: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            height: 45px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: opacity 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .email-contact {
+            color: white;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            padding: 60px 80px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+
+        section:last-child {
+            margin-bottom: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 8px;
+            color: #d4a574;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .about-text {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d4a574;
+            font-weight: 600;
+        }
+
+        .job {
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .job:last-child {
+            border-bottom: none;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .job-date {
+            font-size: 0.9rem;
+            color: #999;
+            white-space: nowrap;
+        }
+
+        .job-company {
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .job-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .job ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .job li {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .job li:before {
+            content: "•";
+            color: #d4a574;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .education-item {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #d4a574;
+        }
+
+        .education-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .education-school {
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .education-years {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-item {
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #d4a574;
+        }
+
+        .cert-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .cert-provider {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .cert-id {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #d4a574;
+        }
+
+        .skill-category h3 {
+            color: #d4a574;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: white;
+            color: #d4a574;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #d4a574;
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                padding: 40px 40px;
+                margin: 20px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-pic {
+                margin: 0 auto;
+            }
+
+            .education-grid,
+            .cert-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+
+            .job-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .nav-links {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <img src="logo.png" alt="Roman Slaap Data & AI Consultancy" class="logo">
+            <ul class="nav-links">
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#experience">Work Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+            <div class="email-contact">
+                <span>✉️</span>
+                <span>romanslaap@gmail.com</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h1>ROMAN SLAAP</h1>
+                    <p class="subtitle">Machine Learning Engineer & AI Consultant</p>
+                </div>
+                <div style="text-align: right; color: #666; font-size: 0.9rem; padding-top: 10px;">
+                    <div style="margin-bottom: 5px;">📍 Haarlem, Netherlands</div>
+                    <div style="margin-bottom: 5px;">✉️ romanslaap@gmail.com</div>
+                    <div>📱 0653551566</div>
+                </div>
+            </div>
+        </header>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-section">
+                <img src="profile.jpg" alt="Roman Slaap" class="profile-pic">
+                <div class="about-text">
+                    <p>Skilled, passionate, and creative Machine Learning Engineer with expertise in solving complex problems through a combination of excellent engineering capabilities and strong communication. Adept at understanding complex structures and relationships between components within a business, identifying challenges, and streamlining business processes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Work Experience</h2>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Machine Learning Engineering Consultant</span>
+                    <span class="job-date">April 2024 - Present</span>
+                </div>
+                <p class="job-company">Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)</p>
+                <ul>
+                    <li>Built a LLM-based platform to share IKEA's wide array of knowledge sources with coworkers</li>
+                    <li>Designed platform's modular agent structure to easily connect different sources and make the information available to the coworkers within the stores</li>
+                    <li>Connected with stakeholders to identify, implement and connect new and existing knowledge bases</li>
+                    <li>Manage platform and underlying server infrastructure</li>
+                    <li>Evaluate and iteratively improved product results according to stakeholder needs</li>
+                    <li>Implemented CI/CD pipelines for continuous deployment</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Machine Learning Engineering Consultant</span>
+                    <span class="job-date">May 2022 - March 2024</span>
+                </div>
+                <p class="job-company">Thoughtworks, Amsterdam</p>
+                <ul>
+                    <li>Engaged in all aspects of consultancy work including ML engineering development</li>
+                    <li>Built and presented proposals for new projects to prospective clients</li>
+                    <li>Coached and mentored team members</li>
+                    <li>Cultivated passionate communities within the ML and DS field</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Machine Learning Engineer</span>
+                    <span class="job-date">April 2023 - 2023</span>
+                </div>
+                <p class="job-company">Mercedes-Benz (via Thoughtworks), Amsterdam</p>
+                <ul>
+                    <li>Designed and developed model architecture and ML infrastructure to improve pricing strategy</li>
+                    <li>Transformed a proof-of-concept into a mature production project on the cloud</li>
+                    <li>Implemented complete ML pipeline including data gathering, processing, modeling, automated retraining, monitoring, and visualization</li>
+                    <li>Maintained close communication with clients to meet their needs</li>
+                    <li>Applied strong development practices leading to robust and flexible codebase</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Machine Learning Engineer</span>
+                    <span class="job-date">October 2022 - February 2023</span>
+                </div>
+                <p class="job-company">Mondelez (via Thoughtworks)</p>
+                <ul>
+                    <li>Developed solutions to help product experts optimize recipes</li>
+                    <li>Combined generative adversarial architecture with expert input and test-panel data</li>
+                    <li>Enhanced models to incorporate chemical compound data for more specific recipe generation</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Data Scientist/Engineer</span>
+                    <span class="job-date">January 2021 - 2022</span>
+                </div>
+                <p class="job-company">Nationale Nederlanden, Den Haag</p>
+                <ul>
+                    <li>Implemented Data Science solutions for the Life and Pension Business unit</li>
+                    <li>Automated manual processes including contract data extraction</li>
+                    <li>Built deployment pipelines for continuous development</li>
+                    <li>Transformed raw data into accessible information through visualizations and dashboards</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Data Scientist</span>
+                    <span class="job-date">2020 - 2021</span>
+                </div>
+                <p class="job-company">Nationale Nederlanden, Den Haag</p>
+                <ul>
+                    <li>Led "Rating Engine" project, designing and developing infrastructure</li>
+                    <li>Created Azure Cloud-based end-to-end model and pricing management system</li>
+                    <li>Assisted pricing teams in making informed decisions on damage insurance price policies</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Pricing Analyst</span>
+                    <span class="job-date">2019 - 2020</span>
+                </div>
+                <p class="job-company">Nationale Nederlanden, Den Haag</p>
+                <ul>
+                    <li>Built risk-premium, commercial pricing, and churn models for various insurance products</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="education-item">
+                    <div class="education-title">MSc Computational Science</div>
+                    <div class="education-school">Universiteit van Amsterdam</div>
+                    <div class="education-years">2015 - 2018</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-title">Minor: High Performance Computing</div>
+                    <div class="education-school">National University of Singapore</div>
+                    <div class="education-years">September 2016 - January 2017</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-title">BSc Artificial Intelligence</div>
+                    <div class="education-school">Universiteit van Amsterdam</div>
+                    <div class="education-years">2011 - 2015</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2>Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <div class="cert-name">Data Engineering Accelerated</div>
+                    <div class="cert-provider">Thoughtworks</div>
+                    <div class="cert-id">2023</div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-name">Tech Lead Development Programme</div>
+                    <div class="cert-provider">Thoughtworks</div>
+                    <div class="cert-id">2023</div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-name">Data Management for Data-Stewards</div>
+                    <div class="cert-provider">Vijfhart IT-opleidingen</div>
+                    <div class="cert-id">December 2021</div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-name">Azure Developer Associate</div>
+                    <div class="cert-provider">Microsoft</div>
+                    <div class="cert-id">AI-102, September 2021</div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-name">Azure AI Engineer Associate</div>
+                    <div class="cert-provider">Microsoft</div>
+                    <div class="cert-id">AI-102, November 2020</div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-name">Azure Fundamentals</div>
+                    <div class="cert-provider">Microsoft</div>
+                    <div class="cert-id">Az-900, October 2020</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Software Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Test-driven development</span>
+                        <span class="skill-tag">Rest API</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Clean code</span>
+                        <span class="skill-tag">Debugging</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Generative Modeling</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Predictive modeling</span>
+                        <span class="skill-tag">GenAI</span>
+                        <span class="skill-tag">Prompting</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Cloud & Infrastructure</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Microsoft Azure</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Databricks</span>
+                        <span class="skill-tag">PySpark</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Data & ML Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">NoSQL</span>
+                        <span class="skill-tag">MLFlow</span>
+                        <span class="skill-tag">Kubeflow</span>
+                        <span class="skill-tag">OpenAI</span>
+                        <span class="skill-tag">Langchain</span>
+                        <span class="skill-tag">Langfuse</span>
+                        <span class="skill-tag">Cursor</span>
+                        <span class="skill-tag">Claude</span>
+                        <span class="skill-tag">MCP</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Dutch (Fluent)</span>
+                        <span class="skill-tag">English (Fluent)</span>
+                        <span class="skill-tag">Portuguese (Beginner)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Other Activities</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MLOps & Crafts Organizer</span>
+                        <span class="skill-tag">Community Building</span>
+                        <span class="skill-tag">Workshop Facilitation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
