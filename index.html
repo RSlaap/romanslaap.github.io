@@ -839,23 +839,20 @@
             const nextBtn = document.querySelector('.carousel-arrow.next');
             const logoItems = document.querySelectorAll('.logo-item');
 
-            // Create infinite loop by cloning logos multiple times for smoother transitions
-            // Clone the set 3 times (prepend once, append twice)
+            // Create infinite loop by cloning logos (prepend and append)
             const originalLogos = Array.from(logoItems);
 
-            // Prepend one set
+            // Prepend one complete set
             originalLogos.slice().reverse().forEach(function(logo) {
                 const clone = logo.cloneNode(true);
                 carousel.insertBefore(clone, carousel.firstChild);
             });
 
-            // Append two sets
-            for (let i = 0; i < 2; i++) {
-                originalLogos.forEach(function(logo) {
-                    const clone = logo.cloneNode(true);
-                    carousel.appendChild(clone);
-                });
-            }
+            // Append one complete set
+            originalLogos.forEach(function(logo) {
+                const clone = logo.cloneNode(true);
+                carousel.appendChild(clone);
+            });
 
             // Re-select all logo items (including clones)
             const allLogos = document.querySelectorAll('.logo-item');
@@ -880,31 +877,48 @@
             // Carousel Navigation (Infinite Loop)
             const scrollAmount = 190; // Logo width (160px) + gap (30px)
             const totalOriginalWidth = scrollAmount * logoItems.length;
+            let scrollTimeout;
+            let isScrolling = false;
 
             function scrollCarousel(direction) {
+                isScrolling = true;
+
                 if (direction === 'next') {
                     carousel.scrollLeft += scrollAmount;
                 } else {
                     carousel.scrollLeft -= scrollAmount;
                 }
-
-                // Check for loop-around after scroll animation with requestAnimationFrame for smoothness
-                requestAnimationFrame(checkLoopAround);
             }
 
-            function checkLoopAround() {
-                const currentScroll = carousel.scrollLeft;
-                const maxScroll = totalOriginalWidth * 2; // Two sets after the first
-                const minScroll = totalOriginalWidth * 0.5; // Half-way into first cloned set
+            // Detect when scrolling has stopped and reset position if needed
+            carousel.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
 
-                // If scrolled too far right, seamlessly jump back
-                if (currentScroll >= maxScroll) {
+                scrollTimeout = setTimeout(function() {
+                    isScrolling = false;
+                    checkAndResetPosition();
+                }, 150); // Wait for scroll to finish
+            });
+
+            function checkAndResetPosition() {
+                const currentScroll = carousel.scrollLeft;
+
+                // If scrolled past the end of the middle set, jump back one set
+                if (currentScroll >= totalOriginalWidth * 2 - scrollAmount) {
+                    carousel.style.scrollBehavior = 'auto';
                     carousel.scrollLeft = currentScroll - totalOriginalWidth;
+                    setTimeout(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    }, 10);
                 }
 
-                // If scrolled too far left, seamlessly jump forward
-                if (currentScroll <= minScroll) {
+                // If scrolled before the beginning of the middle set, jump forward one set
+                if (currentScroll <= scrollAmount) {
+                    carousel.style.scrollBehavior = 'auto';
                     carousel.scrollLeft = currentScroll + totalOriginalWidth;
+                    setTimeout(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    }, 10);
                 }
             }
 
@@ -916,7 +930,7 @@
                 scrollCarousel('next');
             });
 
-            // Initialize carousel position to the middle set (first original set after prepended clone)
+            // Initialize carousel position to the middle set
             carousel.style.scrollBehavior = 'auto';
             carousel.scrollLeft = totalOriginalWidth;
             setTimeout(function() {
