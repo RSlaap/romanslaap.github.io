@@ -839,11 +839,23 @@
             const nextBtn = document.querySelector('.carousel-arrow.next');
             const logoItems = document.querySelectorAll('.logo-item');
 
-            // Create infinite loop by cloning logos
-            logoItems.forEach(function(logo) {
+            // Create infinite loop by cloning logos multiple times for smoother transitions
+            // Clone the set 3 times (prepend once, append twice)
+            const originalLogos = Array.from(logoItems);
+
+            // Prepend one set
+            originalLogos.slice().reverse().forEach(function(logo) {
                 const clone = logo.cloneNode(true);
-                carousel.appendChild(clone);
+                carousel.insertBefore(clone, carousel.firstChild);
             });
+
+            // Append two sets
+            for (let i = 0; i < 2; i++) {
+                originalLogos.forEach(function(logo) {
+                    const clone = logo.cloneNode(true);
+                    carousel.appendChild(clone);
+                });
+            }
 
             // Re-select all logo items (including clones)
             const allLogos = document.querySelectorAll('.logo-item');
@@ -876,27 +888,23 @@
                     carousel.scrollLeft -= scrollAmount;
                 }
 
-                // Check for loop-around after scroll animation
-                setTimeout(checkLoopAround, 150);
+                // Check for loop-around after scroll animation with requestAnimationFrame for smoothness
+                requestAnimationFrame(checkLoopAround);
             }
 
             function checkLoopAround() {
-                // If scrolled past the end of original items, jump to beginning
-                if (carousel.scrollLeft >= totalOriginalWidth) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = carousel.scrollLeft - totalOriginalWidth;
-                    setTimeout(function() {
-                        carousel.style.scrollBehavior = 'smooth';
-                    }, 50);
+                const currentScroll = carousel.scrollLeft;
+                const maxScroll = totalOriginalWidth * 2; // Two sets after the first
+                const minScroll = totalOriginalWidth * 0.5; // Half-way into first cloned set
+
+                // If scrolled too far right, seamlessly jump back
+                if (currentScroll >= maxScroll) {
+                    carousel.scrollLeft = currentScroll - totalOriginalWidth;
                 }
 
-                // If scrolled before the beginning, jump to end of original items
-                if (carousel.scrollLeft <= 0) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = totalOriginalWidth;
-                    setTimeout(function() {
-                        carousel.style.scrollBehavior = 'smooth';
-                    }, 50);
+                // If scrolled too far left, seamlessly jump forward
+                if (currentScroll <= minScroll) {
+                    carousel.scrollLeft = currentScroll + totalOriginalWidth;
                 }
             }
 
@@ -908,8 +916,12 @@
                 scrollCarousel('next');
             });
 
-            // Initialize carousel position
-            carousel.scrollLeft = 0;
+            // Initialize carousel position to the middle set (first original set after prepended clone)
+            carousel.style.scrollBehavior = 'auto';
+            carousel.scrollLeft = totalOriginalWidth;
+            setTimeout(function() {
+                carousel.style.scrollBehavior = 'smooth';
+            }, 50);
         }
 
         function initializePopup() {
