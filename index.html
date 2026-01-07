@@ -126,18 +126,21 @@
 
         .about-carousel {
             display: flex;
-            gap: 40px;
+            gap: 0;
             overflow: hidden;
             scroll-behavior: smooth;
+            width: 100%;
         }
 
         .about-page {
             min-width: 100%;
+            width: 100%;
             display: grid;
             grid-template-columns: 200px 1fr;
             gap: 40px;
             align-items: start;
             flex-shrink: 0;
+            padding: 0;
         }
 
         .about-page .profile-pic {
@@ -153,6 +156,8 @@
             font-size: 1rem;
             color: #666;
             line-height: 1.8;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .about-page-content h3 {
@@ -160,6 +165,11 @@
             font-size: 1.2rem;
             margin-bottom: 15px;
             font-weight: 600;
+        }
+
+        .about-page-content p {
+            white-space: normal;
+            word-wrap: break-word;
         }
 
         /* About Me Navigation Arrows */
@@ -928,12 +938,10 @@
             if (pages.length === 0) return;
 
             let currentIndex = 0;
-            const gap = 40; // Gap between pages in pixels
 
             function scrollToPage(index) {
                 const pageWidth = carousel.offsetWidth;
-                // Account for the gap between pages
-                carousel.scrollLeft = index * (pageWidth + gap);
+                carousel.scrollLeft = index * pageWidth;
                 currentIndex = index;
             }
 
