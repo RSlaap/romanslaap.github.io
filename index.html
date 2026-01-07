@@ -928,10 +928,12 @@
             if (pages.length === 0) return;
 
             let currentIndex = 0;
+            const gap = 40; // Gap between pages in pixels
 
             function scrollToPage(index) {
                 const pageWidth = carousel.offsetWidth;
-                carousel.scrollLeft = index * pageWidth;
+                // Account for the gap between pages
+                carousel.scrollLeft = index * (pageWidth + gap);
                 currentIndex = index;
             }
 
