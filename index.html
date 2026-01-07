@@ -117,6 +117,86 @@
             line-height: 1.8;
         }
 
+        /* About Me Carousel Styles */
+        .about-carousel-container {
+            position: relative;
+            max-width: 100%;
+            padding: 20px 80px;
+        }
+
+        .about-carousel {
+            display: flex;
+            gap: 40px;
+            overflow: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .about-page {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: start;
+            flex-shrink: 0;
+        }
+
+        .about-page .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 20px rgba(91,154,150,0.3);
+            border: 4px solid #5B9A96;
+        }
+
+        .about-page-content {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .about-page-content h3 {
+            color: #5B9A96;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* About Me Navigation Arrows */
+        .about-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            border: 2px solid #5B9A96;
+            color: #5B9A96;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .about-arrow:hover {
+            background-color: #5B9A96;
+            color: white;
+            box-shadow: 0 4px 12px rgba(91,154,150,0.3);
+        }
+
+        .about-arrow.prev {
+            left: 10px;
+        }
+
+        .about-arrow.next {
+            right: 10px;
+        }
+
         h2 {
             font-size: 1.1rem;
             text-transform: uppercase;
@@ -171,6 +251,11 @@
             cursor: pointer;
             transition: transform 0.2s ease;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 160px;
         }
 
         .logo-item:hover {
@@ -195,6 +280,14 @@
 
         .logo-item:hover .company-logo {
             box-shadow: 0 6px 20px rgba(212,165,116,0.3);
+        }
+
+        .job-title-text {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            line-height: 1.3;
+            font-weight: 500;
         }
 
         /* Carousel Navigation Arrows */
@@ -454,6 +547,11 @@
                 text-align: center;
             }
 
+            .about-page {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
             .profile-pic {
                 margin: 0 auto;
             }
@@ -475,6 +573,24 @@
                 letter-spacing: 2px;
             }
 
+            .about-carousel-container {
+                padding: 20px 60px;
+            }
+
+            .about-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .about-arrow.prev {
+                left: 5px;
+            }
+
+            .about-arrow.next {
+                right: 5px;
+            }
+
             .carousel-container {
                 padding: 30px 60px;
             }
@@ -483,10 +599,18 @@
                 gap: 20px;
             }
 
+            .logo-item {
+                max-width: 80px;
+            }
+
             .logo-item .company-logo {
                 width: 80px;
                 height: 80px;
                 padding: 8px;
+            }
+
+            .job-title-text {
+                font-size: 0.65rem;
             }
 
             .carousel-arrow {
@@ -550,10 +674,13 @@
 
         <section id="about">
             <h2>About Me</h2>
-            <div class="about-section">
-                <img src="profile.jpeg" alt="Roman Slaap" class="profile-pic">
-                <div class="about-text">
-                    <p>Skilled, passionate, and creative Machine Learning Engineer with expertise in solving complex problems through a combination of excellent engineering capabilities and strong communication. Adept at understanding complex structures and relationships between components within a business, identifying challenges, and streamlining business processes.</p>
+
+            <!-- About Me Carousel -->
+            <div class="about-carousel-container">
+                <button class="about-arrow prev" aria-label="Previous">&larr;</button>
+                <button class="about-arrow next" aria-label="Next">&rarr;</button>
+                <div class="about-carousel" id="aboutCarousel">
+                    <!-- About pages loaded dynamically from JSON files -->
                 </div>
             </div>
         </section>
@@ -736,8 +863,99 @@
         'use strict';
 
         document.addEventListener('DOMContentLoaded', function() {
+            loadAboutPages();
             loadJobs();
         });
+
+        async function loadAboutPages() {
+            try {
+                // Load the about me pages list
+                const response = await fetch('about_me/about-me-list.json');
+                const aboutList = await response.json();
+
+                // Load each about page file
+                const aboutData = await Promise.all(
+                    aboutList.map(page => fetch(`about_me/${page}.json`).then(r => r.json()))
+                );
+
+                // Build the carousel
+                buildAboutCarousel(aboutData);
+
+                // Initialize carousel navigation
+                initializeAboutCarousel();
+            } catch (error) {
+                console.error('Error loading about pages:', error);
+            }
+        }
+
+        function buildAboutCarousel(aboutData) {
+            const carousel = document.getElementById('aboutCarousel');
+
+            aboutData.forEach(page => {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'about-page';
+
+                const img = document.createElement('img');
+                img.src = page.image;
+                img.alt = page.title;
+                img.className = 'profile-pic';
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'about-page-content';
+
+                const h3 = document.createElement('h3');
+                h3.textContent = page.title;
+
+                const p = document.createElement('p');
+                p.textContent = page.content;
+
+                contentDiv.appendChild(h3);
+                contentDiv.appendChild(p);
+
+                pageDiv.appendChild(img);
+                pageDiv.appendChild(contentDiv);
+
+                carousel.appendChild(pageDiv);
+            });
+        }
+
+        function initializeAboutCarousel() {
+            const carousel = document.getElementById('aboutCarousel');
+            const prevBtn = document.querySelector('.about-arrow.prev');
+            const nextBtn = document.querySelector('.about-arrow.next');
+            const pages = document.querySelectorAll('.about-page');
+
+            if (pages.length === 0) return;
+
+            let currentIndex = 0;
+
+            function scrollToPage(index) {
+                const pageWidth = carousel.offsetWidth;
+                carousel.scrollLeft = index * pageWidth;
+                currentIndex = index;
+            }
+
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    scrollToPage(currentIndex - 1);
+                } else {
+                    // Loop to last page
+                    scrollToPage(pages.length - 1);
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < pages.length - 1) {
+                    scrollToPage(currentIndex + 1);
+                } else {
+                    // Loop to first page
+                    scrollToPage(0);
+                }
+            });
+
+            // Initialize at first page
+            scrollToPage(0);
+        }
 
         async function loadJobs() {
             try {
@@ -775,7 +993,13 @@
                 img.alt = job.company || job.positions[0].company;
                 img.className = 'company-logo';
 
+                const titleText = document.createElement('div');
+                titleText.className = 'job-title-text';
+                // Get the title from either direct property or first position (for multiple positions)
+                titleText.textContent = job.title || job.positions[0].title;
+
                 logoItem.appendChild(img);
+                logoItem.appendChild(titleText);
                 carousel.appendChild(logoItem);
             });
         }
