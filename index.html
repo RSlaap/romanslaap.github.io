@@ -430,6 +430,35 @@
             font-size: 1.2rem;
         }
 
+        .job-skills {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .job-skills h4 {
+            color: #d4a574;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .job-skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .job-skill-tag {
+            background-color: #f8f9fa;
+            color: #d4a574;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            border: 1px solid #d4a574;
+        }
+
         .education-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1065,6 +1094,29 @@
                 ul.appendChild(li);
             });
             container.appendChild(ul);
+
+            // Add skills if available
+            if (position.skills_used && position.skills_used.length > 0) {
+                const skillsDiv = document.createElement('div');
+                skillsDiv.className = 'job-skills';
+
+                const skillsTitle = document.createElement('h4');
+                skillsTitle.textContent = 'Skills Used';
+                skillsDiv.appendChild(skillsTitle);
+
+                const skillsTagsDiv = document.createElement('div');
+                skillsTagsDiv.className = 'job-skills-tags';
+
+                position.skills_used.forEach(skill => {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'job-skill-tag';
+                    skillTag.textContent = skill;
+                    skillsTagsDiv.appendChild(skillTag);
+                });
+
+                skillsDiv.appendChild(skillsTagsDiv);
+                container.appendChild(skillsDiv);
+            }
         }
 
         function initializeCarousel() {

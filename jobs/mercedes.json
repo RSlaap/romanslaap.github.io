@@ -2,7 +2,7 @@
   "id": "job-2",
   "title": "Machine Learning Engineer",
   "date": "April 2023 - 2023",
-  "company": "Mercedes-Benz (via Thoughtworks), Amsterdam",
+  "company": "Mercedes-Benz (via Thoughtworks), Frankfurt (remote)",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
   "responsibilities": [
     "Designed and developed model architecture and ML infrastructure to improve pricing strategy",
@@ -10,5 +10,13 @@
     "Implemented complete ML pipeline including data gathering, processing, modeling, automated retraining, monitoring, and visualization",
     "Maintained close communication with clients to meet their needs",
     "Applied strong development practices leading to robust and flexible codebase"
+  ],
+  "skills_used": [
+    "Python",
+    "Predictive modeling",
+    "AWS",
+    "MLFlow",
+    "Docker",
+    "CI/CD"
   ]
 }
