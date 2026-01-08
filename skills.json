@@ -1,0 +1,49 @@
+{
+  "programming_languages": [
+    "Python",
+    "SQL"
+  ],
+  "software_development": [
+    "Test-driven development",
+    "API development",
+    "Git",
+    "Clean code",
+    "Debugging"
+  ],
+  "machine_learning": [
+    "Generative Modeling",
+    "NLP",
+    "Predictive modeling",
+    "GenAI",
+    "Prompting",
+    "CI/CD"
+  ],
+  "cloud_and_infrastructure": [
+    "Microsoft Azure",
+    "AWS",
+    "Docker",
+    "Databricks",
+    "PySpark"
+  ],
+  "data_and_ml_tools": [
+    "NoSQL",
+    "MLFlow",
+    "Kubeflow",
+    "OpenAI",
+    "Langchain",
+    "Langfuse",
+    "Cursor",
+    "Claude",
+    "MCP"
+  ],
+  "languages": [
+    "Dutch (Fluent)",
+    "English (Fluent)",
+    "Portuguese (Beginner)"
+  ],
+  "other_activities": [
+    "MLOps & Crafts Organizer",
+    "Community Building",
+    "Workshop Facilitation"
+  ]
+}
