@@ -23,19 +23,19 @@
     "AWS",
     "Docker",
     "Databricks",
-    "PySpark"
+    "PySpark",
+    "(No)SQL"
   ],
   "data_and_ml_tools": [
-    "NoSQL",
     "MLFlow",
     "Kubeflow",
     "OpenAI",
     "Langchain",
     "Langfuse",
-    "Cursor",
-    "Claude",
+    "Claude (code)",
     "MCP"
   ],
+
   "languages": [
     "Dutch (Fluent)",
     "English (Fluent)",
@@ -44,6 +44,7 @@
   "other_activities": [
     "MLOps & Crafts Organizer",
     "Community Building",
-    "Workshop Facilitation"
+    "Workshop Facilitation",
+    "Presenting"
   ]
 }
