@@ -11,12 +11,10 @@
     "Maintained close communication with clients to meet their needs",
     "Applied strong development practices leading to robust and flexible codebase"
   ],
-  "skills_used": [
+  "skills": [
     "Python",
-    "Predictive modeling",
-    "AWS",
-    "MLFlow",
-    "Docker",
-    "CI/CD"
+    "Building Predictive modeling",
+    "Designing and building Model (re)training architecture on AWS",
+    "Involving Human-in-the-loop data in model retraining"
   ]
 }

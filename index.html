@@ -1096,18 +1096,18 @@
             container.appendChild(ul);
 
             // Add skills if available
-            if (position.skills_used && position.skills_used.length > 0) {
+            if (position.skills && position.skills.length > 0) {
                 const skillsDiv = document.createElement('div');
                 skillsDiv.className = 'job-skills';
 
                 const skillsTitle = document.createElement('h4');
-                skillsTitle.textContent = 'Skills Used';
+                skillsTitle.textContent = 'Skills Developed and Used';
                 skillsDiv.appendChild(skillsTitle);
 
                 const skillsTagsDiv = document.createElement('div');
                 skillsTagsDiv.className = 'job-skills-tags';
 
-                position.skills_used.forEach(skill => {
+                position.skills.forEach(skill => {
                     const skillTag = document.createElement('span');
                     skillTag.className = 'job-skill-tag';
                     skillTag.textContent = skill;

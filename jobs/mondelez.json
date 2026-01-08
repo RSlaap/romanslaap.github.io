@@ -9,7 +9,7 @@
     "Combined generative adversarial architecture with human-in-the-loop input, both expert and test-panel data",
     "Enhanced models to incorporate chemical compound data for more specific recipe generation."
   ],
-  "skills_used": [
+  "skills": [
     "Python",
     "Bayesian optimization with Adaptive Experimentation and Botorch",
     "Building CI/CD pipelines on Azure",

@@ -12,10 +12,13 @@
     "Evaluate and iteratively improved product results according to stakeholder needs",
     "Implemented CI/CD pipelines for continuous deployment"
   ],
-  "skills_used": [
+  "skills": [
     "Python",
     "Model Context Protocol",
     "Azure AI Search and other RAG solutions",
-    "(getting rid of) Langchain"
+    "Designing and building agentic AI architectures before it was cool",
+    "Building ETL pipelines", 
+    "Graph-based data ingestion",
+    "Platform performance optimtization"
   ]
 }

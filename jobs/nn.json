@@ -12,10 +12,9 @@
         "Built deployment pipelines for continuous development",
         "Transformed raw data into accessible information through visualizations and dashboards"
       ],
-      "skills_used": [
+      "skills": [
         "Python",
         "Azure",
-        "PySpark",
         "CI/CD"
       ]
     },
@@ -28,9 +27,9 @@
         "Created Azure Cloud-based end-to-end model and pricing management system",
         "Assisted pricing teams in making informed decisions on damage insurance price policies"
       ],
-      "skills_used": [
+      "skills": [
         "Python",
-        "Predictive modeling",
+        "Predictive modeling with strong constraints",
         "Azure",
         "SQL"
       ]
@@ -42,7 +41,7 @@
       "responsibilities": [
         "Built risk-premium, commercial pricing, and churn models for various insurance products"
       ],
-      "skills_used": [
+      "skills": [
         "Python",
         "Predictive modeling"
       ]
