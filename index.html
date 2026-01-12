@@ -724,7 +724,7 @@
                         font-size: 0.9rem;
                         font-weight: 600;
                         transition: all 0.3s;
-                    ">Download Resume PDF</button>
+                    ">Resume</button>
                 </div>
             </div>
         </header>
@@ -1399,7 +1399,16 @@
 
                 // Contact Info
                 doc.setFontSize(10);
-                doc.text('Haarlem, Netherlands | romanslaap@gmail.com | 0653551566 | romanslaap.nl', leftMargin, yPos);
+                doc.text('Haarlem, Netherlands | romanslaap@gmail.com | 0653551566', leftMargin, yPos);
+                yPos += 6;
+
+                // Website link - make it prominent and clickable
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(212, 165, 116); // Gold color matching the theme
+                doc.textWithLink('romanslaap.nl', leftMargin, yPos, { url: 'https://romanslaap.nl' });
+                doc.setTextColor(0, 0, 0); // Reset to black
+                doc.setFont('helvetica', 'normal');
                 yPos += 10;
 
                 // Summary Section
@@ -1559,7 +1568,7 @@
                 alert('Error generating resume PDF. Please try again.');
 
                 const btn = document.getElementById('downloadResumeBtn');
-                btn.textContent = 'Download Resume PDF';
+                btn.textContent = 'Resume';
                 btn.disabled = false;
             }
         }
