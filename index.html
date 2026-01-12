@@ -680,7 +680,14 @@
                 font-size: 0.85rem;
             }
         }
+
+        #downloadResumeBtn:hover {
+            background-color: #d4a574;
+            color: white;
+            box-shadow: 0 2px 8px rgba(212,165,116,0.3);
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <nav>
@@ -706,7 +713,18 @@
                 <div style="text-align: right; color: #666; font-size: 0.9rem; padding-top: 10px;">
                     <div style="margin-bottom: 5px;">📍 Haarlem, Netherlands</div>
                     <div style="margin-bottom: 5px;">✉️ romanslaap@gmail.com</div>
-                    <div>📱 0653551566</div>
+                    <div style="margin-bottom: 15px;">📱 0653551566</div>
+                    <button id="downloadResumeBtn" style="
+                        background-color: white;
+                        color: #d4a574;
+                        border: 2px solid #d4a574;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        transition: all 0.3s;
+                    ">Download Resume PDF</button>
                 </div>
             </div>
         </header>
@@ -1278,6 +1296,272 @@
 
             // Make openPopup accessible to event listeners
             window.openPopup = openPopup;
+        }
+    })();
+    </script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // Wait for jsPDF to load and DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('downloadResumeBtn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', generateResumePDF);
+            }
+        });
+
+        async function collectResumeData() {
+            try {
+                // Fetch JSON data
+                const aboutResponse = await fetch('about_me/page1.json');
+                const aboutData = await aboutResponse.json();
+
+                const jobsListResponse = await fetch('jobs/jobs-list.json');
+                const jobsList = await jobsListResponse.json();
+
+                const jobsData = await Promise.all(
+                    jobsList.map(jobFile => fetch(`jobs/${jobFile}.json`).then(r => r.json()))
+                );
+
+                const skillsResponse = await fetch('skills.json');
+                const skillsData = await skillsResponse.json();
+
+                // Parse Education from DOM
+                const educationElements = document.querySelectorAll('.education-item');
+                const education = Array.from(educationElements).map(el => ({
+                    title: el.querySelector('.education-title').textContent,
+                    school: el.querySelector('.education-school').textContent,
+                    years: el.querySelector('.education-years').textContent
+                }));
+
+                // Parse Certifications from DOM
+                const certElements = document.querySelectorAll('.cert-item');
+                const certifications = Array.from(certElements).map(el => ({
+                    name: el.querySelector('.cert-name').textContent,
+                    provider: el.querySelector('.cert-provider').textContent,
+                    id: el.querySelector('.cert-id').textContent
+                }));
+
+                return {
+                    about: aboutData,
+                    jobs: jobsData,
+                    skills: skillsData,
+                    education: education,
+                    certifications: certifications
+                };
+            } catch (error) {
+                console.error('Error collecting resume data:', error);
+                throw error;
+            }
+        }
+
+        async function generateResumePDF() {
+            try {
+                // Show loading state
+                const btn = document.getElementById('downloadResumeBtn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Generating PDF...';
+                btn.disabled = true;
+
+                // Collect data
+                const data = await collectResumeData();
+
+                // Initialize jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                let yPos = 20;
+                const leftMargin = 20;
+                const rightMargin = 190;
+                const lineHeight = 6;
+                const pageHeight = 280;
+
+                // Helper: Check if we need a new page
+                function checkPageBreak(neededSpace) {
+                    if (yPos + neededSpace > pageHeight) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                }
+
+                // Header: Name and Title
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text('ROMAN SLAAP', leftMargin, yPos);
+                yPos += 8;
+
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.text('Machine Learning Engineer & AI Consultant', leftMargin, yPos);
+                yPos += 10;
+
+                // Contact Info
+                doc.setFontSize(10);
+                doc.text('Haarlem, Netherlands | romanslaap@gmail.com | 0653551566 | romanslaap.nl', leftMargin, yPos);
+                yPos += 10;
+
+                // Summary Section
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('SUMMARY', leftMargin, yPos);
+                yPos += 7;
+
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'normal');
+                const summaryLines = doc.splitTextToSize(data.about.content, rightMargin - leftMargin);
+                summaryLines.forEach(line => {
+                    checkPageBreak(lineHeight);
+                    doc.text(line, leftMargin, yPos);
+                    yPos += lineHeight;
+                });
+                yPos += 5;
+
+                // Experience Section
+                checkPageBreak(20);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('EXPERIENCE', leftMargin, yPos);
+                yPos += 7;
+
+                // Helper function to add job position
+                function addJobPosition(position) {
+                    checkPageBreak(20);
+
+                    doc.setFontSize(11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(position.title, leftMargin, yPos);
+                    yPos += lineHeight;
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(`${position.company} | ${position.date}`, leftMargin, yPos);
+                    yPos += lineHeight + 1;
+
+                    // Responsibilities (limit to 4 key points for brevity)
+                    position.responsibilities.slice(0, 4).forEach(resp => {
+                        checkPageBreak(lineHeight * 2);
+                        const bulletLines = doc.splitTextToSize('• ' + resp, rightMargin - leftMargin - 3);
+                        bulletLines.forEach(line => {
+                            doc.text(line, leftMargin + 3, yPos);
+                            yPos += lineHeight;
+                        });
+                    });
+
+                    // Skills
+                    if (position.skills && position.skills.length > 0) {
+                        checkPageBreak(lineHeight);
+                        const skillsText = 'Skills: ' + position.skills.join(', ');
+                        const skillLines = doc.splitTextToSize(skillsText, rightMargin - leftMargin - 3);
+                        skillLines.forEach(line => {
+                            doc.text(line, leftMargin + 3, yPos);
+                            yPos += lineHeight;
+                        });
+                    }
+
+                    yPos += 5;
+                }
+
+                // Process jobs
+                data.jobs.forEach(job => {
+                    if (job.positions) {
+                        // Handle multiple positions (like NN)
+                        job.positions.forEach(position => {
+                            addJobPosition(position);
+                        });
+                    } else {
+                        // Single position
+                        addJobPosition(job);
+                    }
+                });
+
+                // Education Section
+                checkPageBreak(20);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('EDUCATION', leftMargin, yPos);
+                yPos += 7;
+
+                data.education.forEach(edu => {
+                    checkPageBreak(15);
+                    doc.setFontSize(11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(edu.title, leftMargin, yPos);
+                    yPos += lineHeight;
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(`${edu.school} | ${edu.years}`, leftMargin, yPos);
+                    yPos += lineHeight + 2;
+                });
+                yPos += 3;
+
+                // Certifications Section
+                checkPageBreak(20);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('CERTIFICATIONS', leftMargin, yPos);
+                yPos += 7;
+
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'normal');
+                data.certifications.forEach(cert => {
+                    checkPageBreak(lineHeight);
+                    const certText = `• ${cert.name} - ${cert.provider} (${cert.id})`;
+                    const certLines = doc.splitTextToSize(certText, rightMargin - leftMargin);
+                    certLines.forEach(line => {
+                        doc.text(line, leftMargin, yPos);
+                        yPos += lineHeight;
+                    });
+                });
+                yPos += 3;
+
+                // Skills Section
+                checkPageBreak(20);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('SKILLS', leftMargin, yPos);
+                yPos += 7;
+
+                // Format skills by category
+                Object.keys(data.skills).forEach(category => {
+                    if (Array.isArray(data.skills[category])) {
+                        checkPageBreak(10);
+
+                        // Category name
+                        doc.setFontSize(11);
+                        doc.setFont('helvetica', 'bold');
+                        const categoryTitle = category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        doc.text(categoryTitle + ':', leftMargin, yPos);
+                        yPos += lineHeight;
+
+                        // Skills list
+                        doc.setFont('helvetica', 'normal');
+                        const skillsList = data.skills[category].join(', ');
+                        const skillsLines = doc.splitTextToSize(skillsList, rightMargin - leftMargin - 5);
+                        skillsLines.forEach(line => {
+                            checkPageBreak(lineHeight);
+                            doc.text(line, leftMargin + 5, yPos);
+                            yPos += lineHeight;
+                        });
+                        yPos += 2;
+                    }
+                });
+
+                // Save PDF
+                doc.save('Roman_Slaap_Resume.pdf');
+
+                // Reset button
+                btn.textContent = originalText;
+                btn.disabled = false;
+
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating resume PDF. Please try again.');
+
+                const btn = document.getElementById('downloadResumeBtn');
+                btn.textContent = 'Download Resume PDF';
+                btn.disabled = false;
+            }
         }
     })();
     </script>
