@@ -1,0 +1,18 @@
+{
+  "id": "job-ns",
+  "title": "AI Strategy Consultant",
+  "date": "2023",
+  "company": "NS (Nederlandse Spoorwegen), Utrecht",
+  "logo": "https://meta.wikimedia.org/wiki/File:Nederlandse_spoorwegen_logo.svg#/media/File:Logo_NS.svg",
+  "responsibilities": [
+    "Conducted stakeholder interviews across teams to identify key operational challenges and opportunities for AI adoption.",
+    "Synthesised findings into a structured AI strategy, outlining a prioritised set of challenges and a proposed roadmap to address them.",
+    "Delivered the strategy as a presentation deck to NS leadership."
+  ],
+  "skills": [
+    "AI Strategy",
+    "Stakeholder Interviews",
+    "Roadmap Development",
+    "Presenting"
+  ]
+}
