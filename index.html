@@ -708,7 +708,7 @@
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
                 <div>
                     <h1>ROMAN SLAAP</h1>
-                    <p class="subtitle">Machine Learning Engineer & AI Consultant</p>
+                    <p class="subtitle">Machine Learning Engineer, Data Scientist, AI Consultant</p>
                 </div>
                 <div style="text-align: right; color: #666; font-size: 0.9rem; padding-top: 10px;">
                     <div style="margin-bottom: 5px;">📍 Haarlem, Netherlands</div>
@@ -836,81 +836,8 @@
 
         <section id="skills">
             <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">SQL</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Software Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Test-driven development</span>
-                        <span class="skill-tag">Rest API</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Clean code</span>
-                        <span class="skill-tag">Debugging</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Machine Learning</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Generative Modeling</span>
-                        <span class="skill-tag">NLP</span>
-                        <span class="skill-tag">Predictive modeling</span>
-                        <span class="skill-tag">GenAI</span>
-                        <span class="skill-tag">Prompting</span>
-                        <span class="skill-tag">CI/CD</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Cloud & Infrastructure</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Microsoft Azure</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Databricks</span>
-                        <span class="skill-tag">PySpark</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Data & ML Tools</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">NoSQL</span>
-                        <span class="skill-tag">MLFlow</span>
-                        <span class="skill-tag">Kubeflow</span>
-                        <span class="skill-tag">OpenAI</span>
-                        <span class="skill-tag">Langchain</span>
-                        <span class="skill-tag">Langfuse</span>
-                        <span class="skill-tag">Cursor</span>
-                        <span class="skill-tag">Claude</span>
-                        <span class="skill-tag">MCP</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Dutch (Fluent)</span>
-                        <span class="skill-tag">English (Fluent)</span>
-                        <span class="skill-tag">Portuguese (Beginner)</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Other Activities</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">MLOps & Crafts Organizer</span>
-                        <span class="skill-tag">Community Building</span>
-                        <span class="skill-tag">Workshop Facilitation</span>
-                    </div>
-                </div>
+            <div class="skills-grid" id="skillsGrid">
+                <!-- Skills loaded dynamically from skills.json -->
             </div>
         </section>
     </div>
@@ -922,6 +849,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadAboutPages();
             loadJobs();
+            loadSkills();
         });
 
         async function loadAboutPages() {
@@ -1012,6 +940,55 @@
 
             // Initialize at first page
             scrollToPage(0);
+        }
+
+        async function loadSkills() {
+            try {
+                const response = await fetch('skills.json');
+                const skillsData = await response.json();
+                const grid = document.getElementById('skillsGrid');
+
+                const categoryLabels = {
+                    programming_languages: 'Programming Languages',
+                    software_development: 'Software Development',
+                    machine_learning: 'Machine Learning',
+                    cloud_and_infrastructure: 'Cloud & Infrastructure',
+                    ml_and_data_tools: 'ML & Data Tools',
+                    agentic_ai: 'Agentic AI',
+                    languages: 'Languages',
+                    other_activities: 'Other Activities'
+                };
+
+                Object.keys(skillsData).forEach(function(category) {
+                    const skills = skillsData[category];
+                    if (!Array.isArray(skills) || skills.length === 0) return;
+
+                    const label = categoryLabels[category] ||
+                        category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'skill-category';
+
+                    const h3 = document.createElement('h3');
+                    h3.textContent = label;
+                    categoryDiv.appendChild(h3);
+
+                    const tagsDiv = document.createElement('div');
+                    tagsDiv.className = 'skill-tags';
+
+                    skills.forEach(function(skill) {
+                        const tag = document.createElement('span');
+                        tag.className = 'skill-tag';
+                        tag.textContent = skill;
+                        tagsDiv.appendChild(tag);
+                    });
+
+                    categoryDiv.appendChild(tagsDiv);
+                    grid.appendChild(categoryDiv);
+                });
+            } catch (error) {
+                console.error('Error loading skills:', error);
+            }
         }
 
         async function loadJobs() {
