@@ -8,34 +8,35 @@
     "API development",
     "Git",
     "Clean code",
-    "Debugging"
+    "Debugging",
+    "CI/CD"
   ],
   "machine_learning": [
     "Generative Modeling",
     "NLP",
     "Predictive modeling",
     "GenAI",
-    "Prompting",
-    "CI/CD"
+    "Prompt Engineering"
   ],
   "cloud_and_infrastructure": [
     "Microsoft Azure",
     "AWS",
     "Docker",
-    "Databricks",
-    "PySpark",
-    "(No)SQL"
+    "Databricks"
   ],
-  "data_and_ml_tools": [
+  "ml_and_data_tools": [
     "MLFlow",
     "Kubeflow",
-    "OpenAI",
-    "Langchain",
-    "Langfuse",
-    "Claude (code)",
-    "MCP"
+    "PySpark",
+    "OpenAI"
   ],
-
+  "agentic_ai": [
+    "LangChain",
+    "LangFuse",
+    "LangGraph",
+    "MCP",
+    "Claude"
+  ],
   "languages": [
     "Dutch (Fluent)",
     "English (Fluent)",

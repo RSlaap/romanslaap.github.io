@@ -5,16 +5,15 @@
   "company": "Mercedes-Benz (via Thoughtworks), Frankfurt (remote)",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
   "responsibilities": [
-    "Designed and developed model architecture and ML infrastructure to improve pricing strategy",
-    "Transformed a proof-of-concept into a mature production project on the cloud",
-    "Implemented complete ML pipeline including data gathering, processing, modeling, automated retraining, monitoring, and visualization",
-    "Maintained close communication with clients to meet their needs",
-    "Applied strong development practices leading to robust and flexible codebase"
+    "Designed model architecture and built ML infrastructure to aid pricing analysts by providing near real-time competitor pricing information.",
+    "Took a proof-of-concept to a mature, cloud-based production system.",
+    "Implemented a complete ML pipeline covering data gathering, processing, modeling, automated retraining, and monitoring.",
+    "Incorporated human-in-the-loop feedback into automated model retraining."
   ],
   "skills": [
     "Python",
-    "Building Predictive modeling",
-    "Designing and building Model (re)training architecture on AWS",
-    "Involving Human-in-the-loop data in model retraining"
+    "Predictive modeling",
+    "Model Retraining Architecture (AWS)",
+    "Human-in-the-loop ML"
   ]
 }

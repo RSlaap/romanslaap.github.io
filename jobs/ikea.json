@@ -5,20 +5,18 @@
   "company": "Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg",
   "responsibilities": [
-    "Built an LLM-powered platform that makes IKEA's extensive data accessible to employees so that they have quick access to specific information needed for their work.",
-    "Designed and developed platform's modular agent structure to easily connect different sources and make the information available to the coworkers within the stores",
-    "Connected with stakeholders to identify, implement and connect new and existing knowledge bases and serve them to their users in a way that is ",
-    "Manage platform and underlying server infrastructure",
-    "Evaluate and iteratively improved product results according to stakeholder needs",
-    "Implemented CI/CD pipelines for continuous deployment"
+    "Built an LLM-powered, agentic RAG platform giving IKEA employees fast access to enterprise data across stores, reducing the time to find information required to help customers.",
+    "Designed and developed a modular agent architecture to connect knowledge sources and expose them to coworkersthrough a single interface.",
+    "Partnered with business stakeholders to identify, prioritize, and integrate new and existing knowledge bases, improving accessibility and consistency of information across the platform.",
+    "Own platform and underlying server infrastructure end-to-end, including performance optimization and reliability."
   ],
   "skills": [
     "Python",
-    "Model Context Protocol",
-    "Azure AI Search and other RAG solutions",
-    "Designing and building agentic AI architectures before it was cool",
-    "Building ETL pipelines", 
-    "Graph-based data ingestion",
-    "Platform performance optimtization"
+    "Model Context Protocol (MCP)",
+    "Azure AI Search & RAG",
+    "Agentic AI Architecture",
+    "ETL Pipelines", 
+    "Graph-Based Data Ingestion",
+    "Platform Performance Optimization"
   ]
 }

@@ -5,27 +5,29 @@
     {
       "title": "Data Scientist/Engineer",
       "date": "January 2021 - 2022",
-      "company": "Nationale Nederlanden, Den Haag",
+      "company": "Nationale Nederlanden, The Hague",
       "responsibilities": [
-        "Implemented Data Science solutions for the Life and Pension Business unit",
-        "Automated manual processes including contract data extraction",
-        "Built deployment pipelines for continuous development",
-        "Transformed raw data into accessible information through visualizations and dashboards"
+        "Delivered statistical modeling and data science solutions for the Life & Pensions business unit.",
+        "Automated manual processes, including contract data extraction, reducing manual effort.",
+        "Built CI/CD deployment pipelines to support continuous model development and release.",
+        "Built dashboards and visualizations to turn raw data into decision-ready information for business stakeholders."
       ],
       "skills": [
         "Python",
         "Azure",
-        "CI/CD"
+        "CI/CD",
+        "Data Visualization",
+        "SQL"
       ]
     },
     {
       "title": "Data Scientist",
       "date": "2020 - 2021",
-      "company": "Nationale Nederlanden, Den Haag",
+      "company": "Nationale Nederlanden, The Hague",
       "responsibilities": [
-        "Led \"Rating Engine\" project, designing and developing infrastructure",
-        "Created Azure Cloud-based end-to-end model and pricing management system",
-        "Assisted pricing teams in making informed decisions on damage insurance price policies"
+        "Led \"Rating Engine\" project, designed and built an Azure cloud-based end-to-end pricing and model management system.",
+        "Applied statistical and predictive modeling under strong regulatory and business constraints.",
+        "Supported pricing teams with data-driven recommendations on damage insurance pricing policy."
       ],
       "skills": [
         "Python",
@@ -37,13 +39,14 @@
     {
       "title": "Pricing Analyst",
       "date": "2019 - 2020",
-      "company": "Nationale Nederlanden, Den Haag",
+      "company": "Nationale Nederlanden, The Hague",
       "responsibilities": [
-        "Built risk-premium, commercial pricing, and churn models for various insurance products"
+        "Built risk-premium, commercial pricing, and churn models across multiple insurance product lines using statistical and predictive modeling techniques."
       ],
       "skills": [
         "Python",
-        "Predictive modeling"
+        "Predictive modeling",
+        "Statistical Analysis"
       ]
     }
   ]
