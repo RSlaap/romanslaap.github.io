@@ -223,6 +223,11 @@
             border-bottom-color: #5B9A96;
         }
 
+        #testimonials h2 {
+            color: #C17767;
+            border-bottom-color: #C17767;
+        }
+
         #experience h2 {
             color: #d4a574;
             border-bottom-color: #d4a574;
@@ -332,6 +337,86 @@
         }
 
         .carousel-arrow.next {
+            right: 10px;
+        }
+
+        /* Testimonials Carousel Styles */
+        .testimonials-carousel-container {
+            position: relative;
+            max-width: 100%;
+            padding: 20px 80px;
+        }
+
+        .testimonials-carousel {
+            display: flex;
+            gap: 30px;
+            overflow: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .testimonial-card {
+            min-width: 280px;
+            max-width: 280px;
+            flex-shrink: 0;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #C17767;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .testimonial-quote {
+            font-style: italic;
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-role {
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: -10px;
+        }
+
+        .testimonial-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            border: 2px solid #C17767;
+            color: #C17767;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-arrow:hover {
+            background-color: #C17767;
+            color: white;
+            box-shadow: 0 4px 12px rgba(193,119,103,0.3);
+        }
+
+        .testimonial-arrow.prev {
+            left: 10px;
+        }
+
+        .testimonial-arrow.next {
             right: 10px;
         }
 
@@ -638,6 +723,30 @@
                 gap: 20px;
             }
 
+            .testimonials-carousel-container {
+                padding: 20px 60px;
+            }
+
+            .testimonial-card {
+                min-width: 220px;
+                max-width: 220px;
+                padding: 20px;
+            }
+
+            .testimonial-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .testimonial-arrow.prev {
+                left: 5px;
+            }
+
+            .testimonial-arrow.next {
+                right: 5px;
+            }
+
             .logo-item {
                 max-width: 80px;
             }
@@ -695,6 +804,7 @@
             <img src="logo.jpeg" alt="Roman Slaap Data & AI Consultancy" class="logo">
             <ul class="nav-links">
                 <li><a href="#about">About Me</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#certifications">Certifications</a></li>
@@ -738,6 +848,19 @@
                 <button class="about-arrow next" aria-label="Next">&rarr;</button>
                 <div class="about-carousel" id="aboutCarousel">
                     <!-- About pages loaded dynamically from JSON files -->
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <h2>Testimonials</h2>
+
+            <!-- Testimonials Carousel (dynamically loaded) -->
+            <div class="testimonials-carousel-container">
+                <button class="testimonial-arrow prev" aria-label="Previous">&larr;</button>
+                <button class="testimonial-arrow next" aria-label="Next">&rarr;</button>
+                <div class="testimonials-carousel" id="testimonialsCarousel">
+                    <!-- Testimonials loaded dynamically from testimonials.json -->
                 </div>
             </div>
         </section>
@@ -848,6 +971,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             loadAboutPages();
+            loadTestimonials();
             loadJobs();
             loadSkills();
         });
@@ -940,6 +1064,123 @@
 
             // Initialize at first page
             scrollToPage(0);
+        }
+
+        async function loadTestimonials() {
+            try {
+                const response = await fetch('testimonials.json');
+                const testimonials = await response.json();
+
+                buildTestimonialsCarousel(testimonials);
+                initializeTestimonialsCarousel();
+            } catch (error) {
+                console.error('Error loading testimonials:', error);
+            }
+        }
+
+        function buildTestimonialsCarousel(testimonials) {
+            const carousel = document.getElementById('testimonialsCarousel');
+
+            testimonials.forEach(testimonial => {
+                const card = document.createElement('div');
+                card.className = 'testimonial-card';
+
+                const quote = document.createElement('p');
+                quote.className = 'testimonial-quote';
+                quote.textContent = `"${testimonial.quote}"`;
+
+                const author = document.createElement('p');
+                author.className = 'testimonial-author';
+                author.textContent = testimonial.author;
+
+                card.appendChild(quote);
+
+                if (testimonial.role) {
+                    const role = document.createElement('p');
+                    role.className = 'testimonial-role';
+                    role.textContent = testimonial.role;
+                    card.appendChild(role);
+                }
+
+                card.appendChild(author);
+                carousel.appendChild(card);
+            });
+        }
+
+        function initializeTestimonialsCarousel() {
+            const carousel = document.getElementById('testimonialsCarousel');
+            const prevBtn = document.querySelector('.testimonial-arrow.prev');
+            const nextBtn = document.querySelector('.testimonial-arrow.next');
+            const cards = document.querySelectorAll('.testimonial-card');
+
+            if (cards.length === 0) return;
+
+            // Create infinite loop by cloning cards (prepend and append)
+            const originalCards = Array.from(cards);
+
+            originalCards.slice().reverse().forEach(function(card) {
+                const clone = card.cloneNode(true);
+                carousel.insertBefore(clone, carousel.firstChild);
+            });
+
+            originalCards.forEach(function(card) {
+                const clone = card.cloneNode(true);
+                carousel.appendChild(clone);
+            });
+
+            const scrollAmount = 310; // Card width (280px) + gap (30px)
+            const totalOriginalWidth = scrollAmount * cards.length;
+            let scrollTimeout;
+
+            function scrollCarousel(direction) {
+                if (direction === 'next') {
+                    carousel.scrollLeft += scrollAmount;
+                } else {
+                    carousel.scrollLeft -= scrollAmount;
+                }
+            }
+
+            carousel.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+
+                scrollTimeout = setTimeout(function() {
+                    checkAndResetPosition();
+                }, 150);
+            });
+
+            function checkAndResetPosition() {
+                const currentScroll = carousel.scrollLeft;
+
+                if (currentScroll >= totalOriginalWidth * 2 - scrollAmount) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = currentScroll - totalOriginalWidth;
+                    setTimeout(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    }, 10);
+                }
+
+                if (currentScroll <= scrollAmount) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = currentScroll + totalOriginalWidth;
+                    setTimeout(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    }, 10);
+                }
+            }
+
+            prevBtn.addEventListener('click', function() {
+                scrollCarousel('prev');
+            });
+
+            nextBtn.addEventListener('click', function() {
+                scrollCarousel('next');
+            });
+
+            carousel.style.scrollBehavior = 'auto';
+            carousel.scrollLeft = totalOriginalWidth;
+            setTimeout(function() {
+                carousel.style.scrollBehavior = 'smooth';
+            }, 50);
         }
 
         async function loadSkills() {
