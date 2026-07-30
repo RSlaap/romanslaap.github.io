@@ -1076,6 +1076,14 @@
             const itemCount = originalItems.length;
             if (itemCount === 0) return;
 
+            // With only one item there's nothing to page through - show it once with
+            // no clones, and hide the now-pointless prev/next arrows.
+            if (itemCount === 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                return;
+            }
+
             function cloneSets() {
                 originalItems.slice().reverse().forEach(function(item) {
                     carousel.insertBefore(item.cloneNode(true), carousel.firstChild);
