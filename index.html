@@ -1076,13 +1076,14 @@
             const itemCount = originalItems.length;
             if (itemCount === 0) return;
 
-            // Clone a full set before and after so scrolling can loop seamlessly
-            originalItems.slice().reverse().forEach(function(item) {
-                carousel.insertBefore(item.cloneNode(true), carousel.firstChild);
-            });
-            originalItems.forEach(function(item) {
-                carousel.appendChild(item.cloneNode(true));
-            });
+            function cloneSets() {
+                originalItems.slice().reverse().forEach(function(item) {
+                    carousel.insertBefore(item.cloneNode(true), carousel.firstChild);
+                });
+                originalItems.forEach(function(item) {
+                    carousel.appendChild(item.cloneNode(true));
+                });
+            }
 
             function getStep() {
                 const items = carousel.querySelectorAll(itemSelector);
@@ -1092,34 +1093,61 @@
                 return items[1].getBoundingClientRect().left - items[0].getBoundingClientRect().left;
             }
 
-            let lastStep = getStep();
+            // Clone one full set before and after so scrolling can loop seamlessly
+            cloneSets();
+
+            // With only a few items, one cloned set on each side can be narrower than the
+            // carousel itself - the browser then clamps scrollLeft at the edge and the
+            // next/prev buttons appear to do nothing. Keep cloning extra sets until each
+            // side is at least as wide as the visible carousel.
+            let repeatsPerSide = 1;
+            let step = getStep();
+            while (step > 0 && repeatsPerSide * itemCount * step < carousel.clientWidth && repeatsPerSide < 20) {
+                cloneSets();
+                repeatsPerSide++;
+                step = getStep();
+            }
+
+            let lastStep = step;
             let scrollTimeout;
 
+            // Width of a single original-item set. The carousel always loops by this
+            // amount - repeatsPerSide only controls how much cloned buffer exists on
+            // each side so there's room to scroll before a loop reset is needed.
+            function unitWidth() {
+                return itemCount * getStep();
+            }
+
             function scrollCarousel(direction) {
-                const step = getStep();
-                carousel.scrollLeft += direction === 'next' ? step : -step;
-                lastStep = step;
+                const currentStep = getStep();
+                carousel.scrollLeft += direction === 'next' ? currentStep : -currentStep;
+                lastStep = currentStep;
             }
 
             function checkAndResetPosition() {
-                const step = getStep();
-                const totalWidth = step * itemCount;
+                const currentStep = getStep();
+                const bufferWidth = repeatsPerSide * itemCount * currentStep;
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
                 const currentScroll = carousel.scrollLeft;
 
-                if (currentScroll >= totalWidth * 2 - step) {
+                // Trigger based on the browser's real scroll boundaries (rather than a
+                // computed geometry) so this can never mismatch the actual clamp point -
+                // that mismatch is what caused the reset to be unreachable, or to fire on
+                // a degenerate single-item-wide set, in earlier attempts at this fix.
+                if (currentScroll >= maxScroll - currentStep) {
                     carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = currentScroll - totalWidth;
+                    carousel.scrollLeft = currentScroll - bufferWidth;
                     requestAnimationFrame(function() {
                         carousel.style.scrollBehavior = 'smooth';
                     });
-                } else if (currentScroll <= step) {
+                } else if (currentScroll <= currentStep) {
                     carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = currentScroll + totalWidth;
+                    carousel.scrollLeft = currentScroll + bufferWidth;
                     requestAnimationFrame(function() {
                         carousel.style.scrollBehavior = 'smooth';
                     });
                 }
-                lastStep = step;
+                lastStep = currentStep;
             }
 
             carousel.addEventListener('scroll', function() {
@@ -1156,7 +1184,7 @@
 
             // Start on the middle (original) set
             carousel.style.scrollBehavior = 'auto';
-            carousel.scrollLeft = itemCount * lastStep;
+            carousel.scrollLeft = repeatsPerSide * unitWidth();
             requestAnimationFrame(function() {
                 carousel.style.scrollBehavior = 'smooth';
             });
