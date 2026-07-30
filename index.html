@@ -1066,6 +1066,102 @@
             scrollToPage(0);
         }
 
+        // Shared infinite-loop carousel controller used by the Experience and Testimonials
+        // sections. The scroll step is measured live from the DOM (distance between two
+        // adjacent items) on every interaction, so a click always lands on exactly the next
+        // box no matter the current item size/gap - including after a resize or on mobile,
+        // where those values differ from desktop.
+        function initInfiniteCarousel({ carousel, prevBtn, nextBtn, itemSelector }) {
+            const originalItems = Array.from(carousel.querySelectorAll(itemSelector));
+            const itemCount = originalItems.length;
+            if (itemCount === 0) return;
+
+            // Clone a full set before and after so scrolling can loop seamlessly
+            originalItems.slice().reverse().forEach(function(item) {
+                carousel.insertBefore(item.cloneNode(true), carousel.firstChild);
+            });
+            originalItems.forEach(function(item) {
+                carousel.appendChild(item.cloneNode(true));
+            });
+
+            function getStep() {
+                const items = carousel.querySelectorAll(itemSelector);
+                if (items.length < 2) {
+                    return items[0] ? items[0].getBoundingClientRect().width : 0;
+                }
+                return items[1].getBoundingClientRect().left - items[0].getBoundingClientRect().left;
+            }
+
+            let lastStep = getStep();
+            let scrollTimeout;
+
+            function scrollCarousel(direction) {
+                const step = getStep();
+                carousel.scrollLeft += direction === 'next' ? step : -step;
+                lastStep = step;
+            }
+
+            function checkAndResetPosition() {
+                const step = getStep();
+                const totalWidth = step * itemCount;
+                const currentScroll = carousel.scrollLeft;
+
+                if (currentScroll >= totalWidth * 2 - step) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = currentScroll - totalWidth;
+                    requestAnimationFrame(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    });
+                } else if (currentScroll <= step) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = currentScroll + totalWidth;
+                    requestAnimationFrame(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    });
+                }
+                lastStep = step;
+            }
+
+            carousel.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(checkAndResetPosition, 150);
+            });
+
+            prevBtn.addEventListener('click', function() {
+                scrollCarousel('prev');
+            });
+
+            nextBtn.addEventListener('click', function() {
+                scrollCarousel('next');
+            });
+
+            // Re-align to a clean item boundary whenever the viewport is resized (rotating a
+            // phone, resizing the window across a breakpoint, etc.), preserving the
+            // currently visible item instead of snapping back to the start.
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    const newStep = getStep();
+                    if (!lastStep || !newStep) return;
+                    const approxIndex = Math.round(carousel.scrollLeft / lastStep);
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = approxIndex * newStep;
+                    lastStep = newStep;
+                    requestAnimationFrame(function() {
+                        carousel.style.scrollBehavior = 'smooth';
+                    });
+                }, 150);
+            });
+
+            // Start on the middle (original) set
+            carousel.style.scrollBehavior = 'auto';
+            carousel.scrollLeft = itemCount * lastStep;
+            requestAnimationFrame(function() {
+                carousel.style.scrollBehavior = 'smooth';
+            });
+        }
+
         async function loadTestimonials() {
             try {
                 const response = await fetch('testimonials.json');
@@ -1111,76 +1207,13 @@
             const carousel = document.getElementById('testimonialsCarousel');
             const prevBtn = document.querySelector('.testimonial-arrow.prev');
             const nextBtn = document.querySelector('.testimonial-arrow.next');
-            const cards = document.querySelectorAll('.testimonial-card');
 
-            if (cards.length === 0) return;
-
-            // Create infinite loop by cloning cards (prepend and append)
-            const originalCards = Array.from(cards);
-
-            originalCards.slice().reverse().forEach(function(card) {
-                const clone = card.cloneNode(true);
-                carousel.insertBefore(clone, carousel.firstChild);
+            initInfiniteCarousel({
+                carousel: carousel,
+                prevBtn: prevBtn,
+                nextBtn: nextBtn,
+                itemSelector: '.testimonial-card'
             });
-
-            originalCards.forEach(function(card) {
-                const clone = card.cloneNode(true);
-                carousel.appendChild(clone);
-            });
-
-            const scrollAmount = 310; // Card width (280px) + gap (30px)
-            const totalOriginalWidth = scrollAmount * cards.length;
-            let scrollTimeout;
-
-            function scrollCarousel(direction) {
-                if (direction === 'next') {
-                    carousel.scrollLeft += scrollAmount;
-                } else {
-                    carousel.scrollLeft -= scrollAmount;
-                }
-            }
-
-            carousel.addEventListener('scroll', function() {
-                clearTimeout(scrollTimeout);
-
-                scrollTimeout = setTimeout(function() {
-                    checkAndResetPosition();
-                }, 150);
-            });
-
-            function checkAndResetPosition() {
-                const currentScroll = carousel.scrollLeft;
-
-                if (currentScroll >= totalOriginalWidth * 2 - scrollAmount) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = currentScroll - totalOriginalWidth;
-                    setTimeout(function() {
-                        carousel.style.scrollBehavior = 'smooth';
-                    }, 10);
-                }
-
-                if (currentScroll <= scrollAmount) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = currentScroll + totalOriginalWidth;
-                    setTimeout(function() {
-                        carousel.style.scrollBehavior = 'smooth';
-                    }, 10);
-                }
-            }
-
-            prevBtn.addEventListener('click', function() {
-                scrollCarousel('prev');
-            });
-
-            nextBtn.addEventListener('click', function() {
-                scrollCarousel('next');
-            });
-
-            carousel.style.scrollBehavior = 'auto';
-            carousel.scrollLeft = totalOriginalWidth;
-            setTimeout(function() {
-                carousel.style.scrollBehavior = 'smooth';
-            }, 50);
         }
 
         async function loadSkills() {
@@ -1359,24 +1392,15 @@
             const carousel = document.getElementById('logoCarousel');
             const prevBtn = document.querySelector('.carousel-arrow.prev');
             const nextBtn = document.querySelector('.carousel-arrow.next');
-            const logoItems = document.querySelectorAll('.logo-item');
 
-            // Create infinite loop by cloning logos (prepend and append)
-            const originalLogos = Array.from(logoItems);
-
-            // Prepend one complete set
-            originalLogos.slice().reverse().forEach(function(logo) {
-                const clone = logo.cloneNode(true);
-                carousel.insertBefore(clone, carousel.firstChild);
+            initInfiniteCarousel({
+                carousel: carousel,
+                prevBtn: prevBtn,
+                nextBtn: nextBtn,
+                itemSelector: '.logo-item'
             });
 
-            // Append one complete set
-            originalLogos.forEach(function(logo) {
-                const clone = logo.cloneNode(true);
-                carousel.appendChild(clone);
-            });
-
-            // Re-select all logo items (including clones)
+            // Re-select all logo items (including the clones) to wire up the job popup
             const allLogos = document.querySelectorAll('.logo-item');
 
             allLogos.forEach(function(logo) {
@@ -1395,69 +1419,6 @@
                     }
                 });
             });
-
-            // Carousel Navigation (Infinite Loop)
-            const scrollAmount = 190; // Logo width (160px) + gap (30px)
-            const totalOriginalWidth = scrollAmount * logoItems.length;
-            let scrollTimeout;
-            let isScrolling = false;
-
-            function scrollCarousel(direction) {
-                isScrolling = true;
-
-                if (direction === 'next') {
-                    carousel.scrollLeft += scrollAmount;
-                } else {
-                    carousel.scrollLeft -= scrollAmount;
-                }
-            }
-
-            // Detect when scrolling has stopped and reset position if needed
-            carousel.addEventListener('scroll', function() {
-                clearTimeout(scrollTimeout);
-
-                scrollTimeout = setTimeout(function() {
-                    isScrolling = false;
-                    checkAndResetPosition();
-                }, 150); // Wait for scroll to finish
-            });
-
-            function checkAndResetPosition() {
-                const currentScroll = carousel.scrollLeft;
-
-                // If scrolled past the end of the middle set, jump back one set
-                if (currentScroll >= totalOriginalWidth * 2 - scrollAmount) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = currentScroll - totalOriginalWidth;
-                    setTimeout(function() {
-                        carousel.style.scrollBehavior = 'smooth';
-                    }, 10);
-                }
-
-                // If scrolled before the beginning of the middle set, jump forward one set
-                if (currentScroll <= scrollAmount) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = currentScroll + totalOriginalWidth;
-                    setTimeout(function() {
-                        carousel.style.scrollBehavior = 'smooth';
-                    }, 10);
-                }
-            }
-
-            prevBtn.addEventListener('click', function() {
-                scrollCarousel('prev');
-            });
-
-            nextBtn.addEventListener('click', function() {
-                scrollCarousel('next');
-            });
-
-            // Initialize carousel position to the middle set
-            carousel.style.scrollBehavior = 'auto';
-            carousel.scrollLeft = totalOriginalWidth;
-            setTimeout(function() {
-                carousel.style.scrollBehavior = 'smooth';
-            }, 50);
         }
 
         function initializePopup() {
