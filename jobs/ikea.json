@@ -8,6 +8,7 @@
     "Built an LLM-powered, agentic RAG platform giving IKEA employees fast access to enterprise data across stores, reducing the time to find information required to help customers.",
     "Designed and developed a modular agent architecture to connect knowledge sources and expose them to coworkersthrough a single interface.",
     "Partnered with business stakeholders to identify, prioritize, and integrate new and existing knowledge bases, improving accessibility and consistency of information across the platform.",
+    "Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.",
     "Own platform and underlying server infrastructure end-to-end, including performance optimization and reliability."
   ],
   "skills": [
