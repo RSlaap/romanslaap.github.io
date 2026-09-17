@@ -1,24 +1,30 @@
 {
   "id": "job-0",
-  "title": "Machine Learning Engineering Consultant",
-  "date": "April 2024 - Present",
+  "title": "Agentic AI Consultant",
+  "date": "April 2024 - September 2026",
   "company": "Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg",
   "responsibilities": [
-    "Built an LLM-powered, agentic RAG platform giving IKEA employees fast access to enterprise data across stores, reducing the time to find information required to help customers.",
-    "Designed and developed a modular agent architecture to connect knowledge sources and expose them to coworkersthrough a single interface.",
+    "Built an LLM-powered, agentic AI platform giving IKEA employees fast access to enterprise data across stores, making required data more readily accessible and reducing customer wait-times in IKEA stores.",
+    "Designed and developed a modular agentic architecture to connect knowledge sources and expose them to coworkers through a single interface.",
     "Partnered with business stakeholders to identify, prioritize, and integrate new and existing knowledge bases, improving accessibility and consistency of information across the platform.",
     "Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.",
     "Own platform and underlying server infrastructure end-to-end, including performance optimization and reliability."
   ],
   "skills": [
     "Python",
-    "Model Context Protocol (MCP)",
-    "Azure AI Search & RAG",
-    "Agentic AI Architecture",
-    "ETL Pipelines", 
+    "Agentic architecture design",
+    "Agentic AI implementation",
+    "Agentic AI performance optimization",
+    "GenAI cost optimization",
+    "[GenAI] observability, monitoring & Evaluation",
+    "Prompt engineering",
+    "Azure",
     "Graph-Based Data Ingestion",
-    "Platform Performance Optimization",
-    "Databricks"
+    "Model Context Protocol (MCP)",
+    "RAG & Vector databases", 
+    "Databricks",
+    "ETL Pipelines",
+    "Authentication & Authorization"
   ]
 }

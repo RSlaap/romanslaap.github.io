@@ -5,13 +5,15 @@
   "company": "Mondelez (via Thoughtworks)",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Mondelez_international_2012_logo.svg",
   "responsibilities": [
-    "Built generative and Bayesian optimization models to help product experts optimize recipe formulations under limited data.",
+    "Built generative and Bayesian optimization models to help product experts optimize recipe formulations with limited data.",
     "Combined a generative adversarial architecture with human-in-the-loop input from experts and consumer test panels.",
     "Extended models to incorporate chemical compound data, improving specificity of generated recipes."
   ],
   "skills": [
     "Python",
+    "Azure",
     "Bayesian optimization with Adaptive Experimentation, Botorch",
+    "Adversarial models",
     "Azure CI/CD",
     "Modelling with small datasets"
     ]

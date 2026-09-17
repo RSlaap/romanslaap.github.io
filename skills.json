@@ -35,7 +35,9 @@
     "LangFuse",
     "LangGraph",
     "MCP",
-    "Claude"
+    "Claude",
+    "MCP",
+    "Workflow automation"
   ],
   "languages": [
     "Dutch (Fluent)",

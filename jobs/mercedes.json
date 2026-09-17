@@ -12,8 +12,11 @@
   ],
   "skills": [
     "Python",
+    "AWS",
+    "Architecture design",
     "Predictive modeling",
-    "Model Retraining Architecture (AWS)",
+    "Language Modelling",
+    "Model Retraining Architecture",
     "Human-in-the-loop ML"
   ]
 }
