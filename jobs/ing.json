@@ -1,0 +1,17 @@
+{
+  "id": "job-ing",
+  "title": "Time-series Analysis Intern",
+  "date": "Sept 2018 - March 2019",
+  "company": "ING, Amsterdam",
+  "logo": "https://d21buns5ku92am.cloudfront.net/69197/images/369968-ING_Identifier_FC-8d1eb0-medium-1605087880.png",
+  "responsibilities": [
+    "Anomaly detection in transaction-based data",
+    "Thesis internship"
+  ],
+  "skills": [
+    "Time series analysis",
+    "Sensitive data",
+    "PII data",
+    "LSTM"
+  ]
+}
