@@ -1,0 +1,296 @@
+# Single source of truth for the website and every resume variant.
+# Keep the long version here: every bullet, every number.
+# Resume variants (resumes/*.yaml) only select and reorder what is in this file.
+
+person:
+  name: Roman Slaap
+  location: Haarlem, Netherlands
+  email: romanslaap@gmail.com
+  phone: "0653551566"
+  website: https://romanslaap.nl
+  linkedin: https://www.linkedin.com/in/roman-slaap
+  # github: https://github.com/...   # shown on resumes once filled in
+
+# Subtitle under your name on the website.
+headline: Forward Deployed Engineer and Agentic AI lifecycle consultant
+
+# Resume variants pick one of these by key.
+summaries:
+  default: >-
+    I start with the problem, not the code: I talk to the people affected, figure out where it hurts, and build the solution that fixes it. 
+    With over 8 years of experience working with large enterprises in retail, automotive and insurance, I understand how they decide, build and ship, and where and how it tends to fail. 
+    I deliver systems that run efficiently in production through monitoring, evaluation and cost optimization.
+
+  machine_learning_engineer: >-
+    Test
+
+# Every bullet tag must be listed here. The build fails on typos.
+tags:
+  fde: Hands-on building and shipping with/for a client
+  mle: Pipelines, infrastructure, CI/CD, monitoring, retraining
+
+about_pages:
+  - title: About Me
+    image: professional_profile.jpeg
+    summary: default   # reuses summaries.default instead of repeating it
+
+testimonials:
+  - quote: >-
+      [Roman] never focused solely on writing code or solving isolated technical
+      challenges. Instead, he consistently considered the complete solution,
+      from understanding the business problem and technical architecture to
+      implementation, deployment, and long-term maintainability. [...] He is
+      someone you can trust to take responsibility for a problem, work
+      independently, and deliver high-quality solutions without requiring
+      close supervision.
+    author: Radmilo Krstonijevic
+    role: Global Head of AI & Tech, Inter IKEA Group
+
+# Website carousel order = this order. Each entry is one logo; positions are roles there.
+experience:
+  - id: ikea
+    logo: https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg
+    positions:
+      - id: ikea
+        title: AI-engineer
+        date: March 2024 - September 2026
+        company: Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)
+        bullets:
+          - text: Built and ran an agentic AI platform piloted with 40 regular users in 2 stores, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
+            tags: [fde, mle]
+          - text: Built a self-service platform where managers create and manage their own agents, with a dashboard that tracks the questions coworkers ask and how they rate the answers.
+            tags: [fde, mle]
+          - text: Developed the agent's frontend, including question suggestions, as-you-type completion and answer and data presentation, so coworkers could get a usable and readable result.
+            tags: [fde]
+          - text: Designed a modular agentic architecture connecting 8+ knowledge sources behind one interface, working with stakeholders to prioritize which sources to integrate first.            
+            tags: [fde, mle]
+          - text: Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.
+            tags: [fde, mle]
+          - text: Owned the platform and its server infrastructure end to end, keeping total running costs to about €200 a month (about €5 per regular user) while maintaining performance and reliability.
+            tags: [fde, mle]
+
+        used: [python, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, auth, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management]
+
+  - id: thoughtworks
+    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Thoughtworks_logo.png"
+    positions:
+      - id: thoughtworks
+        title: Machine Learning Engineer & Consultant
+        date: May 2022 - February 2024
+        company: Thoughtworks, Amsterdam
+        bullets:
+          - text: Wrote 2 technical proposals for prospective clients; both became signed statements of work, leading to the Mondelez and Mercedes-Benz projects.
+            tags: [fde]
+          - text: Delivered client projects across data science, ML engineering and generative AI, from problem definition to production.
+            tags: [fde, mle]
+          - text: Coached 2 junior engineers during a client project on software engineering and ML engineering practices.
+            tags: [mle, fde]
+          - text: Led the office's lunch and learn program, bringing in speakers from inside and outside the company several times a month, and gave talks on AI and data science for colleagues.
+            tags: [fde]
+        used: [stakeholder-management, client-acquisition, proposal-writing, presenting, coaching, community-building]
+
+  - id: mercedes
+    logo: https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg
+    positions:
+      - id: mercedes
+        title: Machine Learning Engineer
+        date: April 2023 - November 2023
+        company: Mercedes-Benz (via Thoughtworks), Frankfurt (remote)
+        client_of: thoughtworks   # resumes show this as a client project under that position
+        summary: Pricing analysts spent a lot of time looking up competitor prices on websites and reading through PDFs of competitor pricing data.
+        bullets:
+          - text: Took a proof of concept to a production system on AWS in 6 months, giving pricing analysts near real-time competitor prices in place of manual lookups on competitor websites and in PDFs.
+            tags: [fde, mle]
+          - text: Built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
+            tags: [mle, fde]
+          - text: Car-part matching accuracy increased from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
+            tags: [mle, fde]
+        stack: Python, AWS (container hosting, storage, monitoring)
+        
+        used: [python, aws, docker, predictive-modeling, human-in-the-loop, retraining, model-monitoring, system-architecture]
+
+  - id: mondelez
+    logo: https://upload.wikimedia.org/wikipedia/commons/c/c7/Mondelez_international_2012_logo.svg
+    positions:
+      - id: mondelez
+        title: Machine Learning Engineer
+        date: October 2022 - February 2023
+        company: Mondelez (via Thoughtworks)
+        client_of: thoughtworks
+        summary: Developing a new recipe took many costly rounds of testing with product experts and consumer panels.
+        bullets:
+          - text: Built generative and Bayesian optimization models to help product experts optimize recipe formulations with extremely small datasets (fewer than 20 data points).
+            tags: [fde]
+          - text: Combined a generative adversarial architecture with human-in-the-loop input from experts and consumer test panels.
+            tags: [fde]
+
+        used: [python, bayesopt, generative-models, small-data, human-in-the-loop, azure, ci-cd]
+
+  - id: nn
+    logo: https://upload.wikimedia.org/wikipedia/commons/0/02/NN_Group_logo.jpeg
+    # Resumes merge these positions into one entry under this title.
+    resume_merge:
+      title: Data Scientist (Pricing Analyst, then Data Scientist/Engineer)
+      company: Nationale-Nederlanden, The Hague
+      date: September 2018 - April 2022
+    positions:
+      - id: nn-data-scientist-engineer
+        title: Data Scientist/Engineer
+        date: January 2021 - 2022
+        company: Nationale Nederlanden, The Hague
+        bullets:
+          - text: Delivered statistical modeling and data science solutions for the Life & Pensions business unit.
+            tags: [fde, mle]
+          - text: Automated manual processes, including contract data extraction, reducing manual effort.
+            tags: [fde, mle]
+          - text: Built CI/CD deployment pipelines to support continuous model development and release.
+            tags: [mle]
+          - text: Built dashboards and visualizations to turn raw data into decision-ready information for business stakeholders.
+            tags: [mle]
+        used: [python, sql, azure, ci-cd, statistical-modeling]
+      - id: nn-data-scientist
+        title: Data Scientist
+        date: 2020 - 2021
+        company: Nationale Nederlanden, The Hague
+        bullets:
+          - text: Led the "Rating Engine" project, designed and built an Azure cloud-based end-to-end pricing and model management system.
+            tags: [fde, mle]
+          - text: Applied statistical and predictive modeling under strong regulatory and business constraints.
+            tags: [mle]
+          - text: Supported pricing teams with data-driven recommendations on damage insurance pricing policy.
+            tags: [mle]
+          - text: Led the data science chapter, coordinating knowledge sharing between 3 teams and 15 data scientists through regular sessions and shared coding and modeling standards.
+            tags: [fde, mle]
+        used: [python, sql, azure, statistical-modeling, predictive-modeling, coaching, community-building]
+
+      - id: nn-pricing-analyst
+        title: Pricing Analyst
+        date: 2019 - 2020
+        company: Nationale Nederlanden, The Hague
+        bullets:
+          - text: Built risk-premium, commercial pricing, and churn models across multiple insurance product lines using statistical and predictive modeling techniques.
+            tags: [fde]
+        used: [python, statistical-modeling, predictive-modeling]
+
+  - id: ing
+    logo: https://d21buns5ku92am.cloudfront.net/69197/images/369968-ING_Identifier_FC-8d1eb0-medium-1605087880.png
+    positions:
+      - id: ing
+        title: Time-series Analysis Intern
+        date: Sept 2018 - March 2019
+        company: ING, Amsterdam
+        bullets:
+          - text: Anomaly detection in transaction-based data
+            tags: [fde, mle]
+          - text: Thesis internship
+            tags: [fde, mle]
+        used: [python, time-series, anomaly-detection, lstm, pii]
+
+education:
+  - title: MSc Computational Science
+    school: Universiteit van Amsterdam
+    years: 2015 - 2018
+    detail: "Thesis: Agent Based Transaction Simulation, in collaboration with ING"
+  - title: "Minor: High Performance Computing"
+    school: National University of Singapore
+    years: September 2016 - January 2017
+  - title: BSc Artificial Intelligence
+    school: Universiteit van Amsterdam
+    years: 2011 - 2015
+
+certifications:
+  - name: Data Engineering Accelerated
+    provider: Thoughtworks
+    detail: "2023"
+  - name: Tech Lead Development Programme
+    provider: Thoughtworks
+    detail: "2023"
+  - name: Data Management for Data-Stewards
+    provider: Vijfhart IT-opleidingen
+    detail: December 2021
+  - name: Azure Developer Associate
+    provider: Microsoft
+    detail: AI-102, September 2021
+  - name: Azure AI Engineer Associate
+    provider: Microsoft
+    detail: AI-102, November 2020
+  - name: Azure Fundamentals
+    provider: Microsoft
+    detail: Az-900, October 2020
+
+# Spoken languages, shown next to education.
+languages: [Dutch (Fluent), English (Fluent), Portuguese (Beginner)]
+
+# Skill groups in website order. Resume variants pick and order groups (skill_groups).
+skill_groups:
+  llm: LLM & Agent Systems
+  evaluation: Evaluation & Monitoring
+  data_ml: Data & ML
+  engineering: Software Engineering
+  cloud: Cloud
+  consulting: Consulting & Leadership
+
+# Every skill is defined once. Positions reference skills by id in `used:`.
+# The build fails if a skill is not used by at least one position; list order = order within its group.
+skills:
+  - {id: agentic-architecture, label: Agentic architecture, group: llm}
+  - {id: rag, label: RAG, group: llm}
+  - {id: mcp, label: MCP, group: llm}
+  - {id: langgraph, label: LangGraph, group: llm}
+  - {id: langchain, label: LangChain, group: llm}
+  - {id: azure-ai-search, label: Azure AI Search, group: llm}
+  - {id: vector-databases, label: Vector databases, group: llm}
+  - {id: prompt-engineering, label: Prompt engineering, group: llm}
+  - {id: graph-ingestion, label: Graph-based data ingestion, group: llm}
+
+  - {id: llm-evaluation, label: LLM evaluation, group: evaluation}
+  - {id: langfuse, label: Observability (Langfuse), group: evaluation}
+  - {id: model-monitoring, label: Model monitoring, group: evaluation}
+  - {id: cost-optimization, label: Cost optimization, group: evaluation}
+
+  - {id: statistical-modeling, label: Statistical modeling, group: data_ml}
+  - {id: predictive-modeling, label: Predictive modeling, group: data_ml}
+  - {id: bayesopt, label: Bayesian optimization (BoTorch), group: data_ml}
+  - {id: generative-models, label: Generative & adversarial models, group: data_ml}
+  - {id: small-data, label: Modeling with small datasets, group: data_ml}
+  - {id: human-in-the-loop, label: Human-in-the-loop ML, group: data_ml}
+  - {id: retraining, label: Automated retraining, group: data_ml}
+  - {id: time-series, label: Time-series analysis, group: data_ml}
+  - {id: anomaly-detection, label: Anomaly detection, group: data_ml}
+  - {id: lstm, label: LSTM, group: data_ml}
+  - {id: sql, label: SQL, group: data_ml}
+  - {id: pyspark, label: PySpark, group: data_ml}
+  - {id: etl, label: ETL pipelines, group: data_ml}
+  - {id: databricks, label: Databricks, group: data_ml}
+  - {id: pii, label: PII data handling, group: data_ml}
+
+  - {id: python, label: Python, group: engineering}
+  - {id: typescript, label: TypeScript, group: engineering}
+  - {id: javascript, label: JavaScript, group: engineering}
+  - {id: sveltekit, label: SvelteKit, group: engineering}
+  - {id: api-development, label: API development, group: engineering}
+  - {id: auth, label: Authentication & authorization, group: engineering}
+  - {id: system-architecture, label: System architecture, group: engineering}
+  - {id: ci-cd, label: CI/CD, group: engineering}
+  - {id: docker, label: Docker, group: engineering}
+  - {id: git, label: Git, group: engineering}
+
+  - {id: azure, label: Azure, group: cloud}
+  - {id: aws, label: AWS, group: cloud}
+
+  - {id: stakeholder-management, label: Stakeholder management, group: consulting}
+  - {id: client-acquisition, label: Client acquisition, group: consulting}
+  - {id: proposal-writing, label: Proposal writing, group: consulting}
+  - {id: presenting, label: Technical presenting, group: consulting}
+  - {id: coaching, label: Coaching & mentoring, group: consulting}
+  - {id: community-building, label: Community building, group: consulting}
+
+  # Not yet tied to a role. Add the id to a position's `used:` and uncomment to enable.
+  # - {id: tdd, label: Test-driven development, group: engineering}
+  # - {id: mlflow, label: MLflow, group: evaluation}
+  # - {id: kubeflow, label: Kubeflow, group: data_ml}
+  # - {id: workshop-facilitation, label: Workshop facilitation, group: consulting}
+
+# Which resume variant the website's "Resume" button links to.
+site:
+  resume: fde

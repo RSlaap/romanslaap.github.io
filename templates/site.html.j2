@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roman Slaap - Machine Learning Engineer & AI Consultant</title>
+    <title>{{ person.name }} - Machine Learning Engineer & AI Consultant</title>
+    <meta name="description" content="{{ summaries.default }}">
     <style>
         * {
             margin: 0;
@@ -544,6 +545,12 @@
             border: 1px solid #d4a574;
         }
 
+        .job-position-divider {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 25px 0;
+        }
+
         .education-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -790,13 +797,25 @@
             }
         }
 
+        #downloadResumeBtn {
+            display: inline-block;
+            background-color: white;
+            color: #d4a574;
+            border: 2px solid #d4a574;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
         #downloadResumeBtn:hover {
             background-color: #d4a574;
             color: white;
             box-shadow: 0 2px 8px rgba(212,165,116,0.3);
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <nav>
@@ -817,24 +836,14 @@
         <header>
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
                 <div>
-                    <h1>ROMAN SLAAP</h1>
-                    <p class="subtitle">Agentic AI engineer and Agentic AI lifecycle consultant</p>
+                    <h1>{{ person.name }}</h1>
+                    <p class="subtitle">{{ headline }}</p>
                 </div>
                 <div style="text-align: right; color: #666; font-size: 0.9rem; padding-top: 10px;">
-                    <div style="margin-bottom: 5px;">📍 Haarlem, Netherlands</div>
-                    <div style="margin-bottom: 5px;">✉️ romanslaap@gmail.com</div>
-                    <div style="margin-bottom: 15px;">📱 0653551566</div>
-                    <button id="downloadResumeBtn" style="
-                        background-color: white;
-                        color: #d4a574;
-                        border: 2px solid #d4a574;
-                        padding: 10px 20px;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        font-size: 0.9rem;
-                        font-weight: 600;
-                        transition: all 0.3s;
-                    ">Resume</button>
+                    <div style="margin-bottom: 5px;">📍 {{ person.location }}</div>
+                    <div style="margin-bottom: 5px;">✉️ {{ person.email }}</div>
+                    <div style="margin-bottom: 15px;">📱 {{ person.phone }}</div>
+                    <a id="downloadResumeBtn" href="{{ resume_url }}" download>Resume</a>
                 </div>
             </div>
         </header>
@@ -842,12 +851,19 @@
         <section id="about">
             <h2>About Me</h2>
 
-            <!-- About Me Carousel -->
             <div class="about-carousel-container">
                 <button class="about-arrow prev" aria-label="Previous">&larr;</button>
                 <button class="about-arrow next" aria-label="Next">&rarr;</button>
                 <div class="about-carousel" id="aboutCarousel">
-                    <!-- About pages loaded dynamically from JSON files -->
+                    {% for page in about_pages %}
+                    <div class="about-page">
+                        <img src="{{ page.image }}" alt="{{ page.title }}" class="profile-pic">
+                        <div class="about-page-content">
+                            <h3>{{ page.title }}</h3>
+                            <p>{{ page.content }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -855,12 +871,19 @@
         <section id="testimonials">
             <h2>Testimonials</h2>
 
-            <!-- Testimonials Carousel (dynamically loaded) -->
             <div class="testimonials-carousel-container">
                 <button class="testimonial-arrow prev" aria-label="Previous">&larr;</button>
                 <button class="testimonial-arrow next" aria-label="Next">&rarr;</button>
                 <div class="testimonials-carousel" id="testimonialsCarousel">
-                    <!-- Testimonials loaded dynamically from testimonials.json -->
+                    {% for testimonial in testimonials %}
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"{{ testimonial.quote }}"</p>
+                        {% if testimonial.role %}
+                        <p class="testimonial-role">{{ testimonial.role }}</p>
+                        {% endif %}
+                        <p class="testimonial-author">{{ testimonial.author }}</p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -868,26 +891,55 @@
         <section id="experience">
             <h2>Experience</h2>
 
-            <!-- Logo Carousel (dynamically loaded) -->
             <div class="carousel-container">
                 <button class="carousel-arrow prev" aria-label="Previous">&larr;</button>
                 <button class="carousel-arrow next" aria-label="Next">&rarr;</button>
                 <div class="logo-carousel" id="logoCarousel">
-                    <!-- Logos loaded dynamically from JSON files -->
+                    {% for job in experience %}
+                    <div class="logo-item" data-job-id="job-{{ job.id }}">
+                        <img src="{{ job.logo }}" alt="{{ job.positions[0].company }}" class="company-logo">
+                        <div class="job-title-text">{{ job.positions[0].title }}</div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
-            <!-- Hidden Job Data (dynamically loaded) -->
+            <!-- Full job details; also readable by crawlers. Copied into the popup on click. -->
             <div class="job-data-container" id="jobDataContainer" style="display: none;">
-                <!-- Job data loaded dynamically from JSON files -->
+                {% for job in experience %}
+                <div class="job-data" id="job-{{ job.id }}">
+                    {% for position in job.positions %}
+                    {% if not loop.first %}
+                    <hr class="job-position-divider">
+                    {% endif %}
+                    <h3>{{ position.title }}</h3>
+                    <p class="job-date">{{ position.date }}</p>
+                    <p class="job-company">{{ position.company }}</p>
+                    <ul>
+                        {% for bullet in position.bullets %}
+                        <li>{{ bullet.text }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% if position.used is defined and position.used %}
+                    <div class="job-skills">
+                        <h4>Skills Developed and Used</h4>
+                        <div class="job-skills-tags">
+                            {% for skill in position.used %}
+                            <span class="job-skill-tag">{{ skill_labels[skill] }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
             </div>
 
-            <!-- Popup Modal -->
             <div class="job-popup-overlay" id="jobPopup" style="display: none;">
                 <div class="job-popup-content">
                     <button class="popup-close" aria-label="Close">&times;</button>
                     <div class="popup-body">
-                        <!-- Content injected here dynamically -->
+                        <!-- Content injected here on click -->
                     </div>
                 </div>
             </div>
@@ -896,71 +948,42 @@
         <section id="education">
             <h2>Education</h2>
             <div class="education-grid">
+                {% for item in education %}
                 <div class="education-item">
-                    <div class="education-title">MSc Computational Science</div>
-                    <div class="education-school">Universiteit van Amsterdam</div>
-                    <div class="education-years">2015 - 2018</div>
+                    <div class="education-title">{{ item.title }}</div>
+                    <div class="education-school">{{ item.school }}</div>
+                    <div class="education-years">{{ item.years }}</div>
                 </div>
-
-                <div class="education-item">
-                    <div class="education-title">Minor: High Performance Computing</div>
-                    <div class="education-school">National University of Singapore</div>
-                    <div class="education-years">September 2016 - January 2017</div>
-                </div>
-
-                <div class="education-item">
-                    <div class="education-title">BSc Artificial Intelligence</div>
-                    <div class="education-school">Universiteit van Amsterdam</div>
-                    <div class="education-years">2011 - 2015</div>
-                </div>
+                {% endfor %}
             </div>
         </section>
 
         <section id="certifications">
             <h2>Certifications</h2>
             <div class="cert-grid">
+                {% for cert in certifications %}
                 <div class="cert-item">
-                    <div class="cert-name">Data Engineering Accelerated</div>
-                    <div class="cert-provider">Thoughtworks</div>
-                    <div class="cert-id">2023</div>
+                    <div class="cert-name">{{ cert.name }}</div>
+                    <div class="cert-provider">{{ cert.provider }}</div>
+                    <div class="cert-id">{{ cert.detail }}</div>
                 </div>
-
-                <div class="cert-item">
-                    <div class="cert-name">Tech Lead Development Programme</div>
-                    <div class="cert-provider">Thoughtworks</div>
-                    <div class="cert-id">2023</div>
-                </div>
-
-                <div class="cert-item">
-                    <div class="cert-name">Data Management for Data-Stewards</div>
-                    <div class="cert-provider">Vijfhart IT-opleidingen</div>
-                    <div class="cert-id">December 2021</div>
-                </div>
-
-                <div class="cert-item">
-                    <div class="cert-name">Azure Developer Associate</div>
-                    <div class="cert-provider">Microsoft</div>
-                    <div class="cert-id">AI-102, September 2021</div>
-                </div>
-
-                <div class="cert-item">
-                    <div class="cert-name">Azure AI Engineer Associate</div>
-                    <div class="cert-provider">Microsoft</div>
-                    <div class="cert-id">AI-102, November 2020</div>
-                </div>
-
-                <div class="cert-item">
-                    <div class="cert-name">Azure Fundamentals</div>
-                    <div class="cert-provider">Microsoft</div>
-                    <div class="cert-id">Az-900, October 2020</div>
-                </div>
+                {% endfor %}
             </div>
         </section>
 
         <section id="skills">
             <h2>Skills</h2>
             <div class="skills-grid" id="skillsGrid">
-                <!-- Skills loaded dynamically from skills.json -->
+                {% for group in site_skill_groups + [{"label": "Languages", "items": languages}] %}
+                <div class="skill-category">
+                    <h3>{{ group.label }}</h3>
+                    <div class="skill-tags">
+                        {% for skill in group["items"] %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </section>
     </div>
@@ -970,63 +993,11 @@
         'use strict';
 
         document.addEventListener('DOMContentLoaded', function() {
-            loadAboutPages();
-            loadTestimonials();
-            loadJobs();
-            loadSkills();
+            initializeAboutCarousel();
+            initializeTestimonialsCarousel();
+            initializeCarousel();
+            initializePopup();
         });
-
-        async function loadAboutPages() {
-            try {
-                // Load the about me pages list
-                const response = await fetch('about_me/about-me-list.json');
-                const aboutList = await response.json();
-
-                // Load each about page file
-                const aboutData = await Promise.all(
-                    aboutList.map(page => fetch(`about_me/${page}.json`).then(r => r.json()))
-                );
-
-                // Build the carousel
-                buildAboutCarousel(aboutData);
-
-                // Initialize carousel navigation
-                initializeAboutCarousel();
-            } catch (error) {
-                console.error('Error loading about pages:', error);
-            }
-        }
-
-        function buildAboutCarousel(aboutData) {
-            const carousel = document.getElementById('aboutCarousel');
-
-            aboutData.forEach(page => {
-                const pageDiv = document.createElement('div');
-                pageDiv.className = 'about-page';
-
-                const img = document.createElement('img');
-                img.src = page.image;
-                img.alt = page.title;
-                img.className = 'profile-pic';
-
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'about-page-content';
-
-                const h3 = document.createElement('h3');
-                h3.textContent = page.title;
-
-                const p = document.createElement('p');
-                p.textContent = page.content;
-
-                contentDiv.appendChild(h3);
-                contentDiv.appendChild(p);
-
-                pageDiv.appendChild(img);
-                pageDiv.appendChild(contentDiv);
-
-                carousel.appendChild(pageDiv);
-            });
-        }
 
         function initializeAboutCarousel() {
             const carousel = document.getElementById('aboutCarousel');
@@ -1198,241 +1169,20 @@
             });
         }
 
-        async function loadTestimonials() {
-            try {
-                const response = await fetch('testimonials.json');
-                const testimonials = await response.json();
-
-                buildTestimonialsCarousel(testimonials);
-                initializeTestimonialsCarousel();
-            } catch (error) {
-                console.error('Error loading testimonials:', error);
-            }
-        }
-
-        function buildTestimonialsCarousel(testimonials) {
-            const carousel = document.getElementById('testimonialsCarousel');
-
-            testimonials.forEach(testimonial => {
-                const card = document.createElement('div');
-                card.className = 'testimonial-card';
-
-                const quote = document.createElement('p');
-                quote.className = 'testimonial-quote';
-                quote.textContent = `"${testimonial.quote}"`;
-
-                const author = document.createElement('p');
-                author.className = 'testimonial-author';
-                author.textContent = testimonial.author;
-
-                card.appendChild(quote);
-
-                if (testimonial.role) {
-                    const role = document.createElement('p');
-                    role.className = 'testimonial-role';
-                    role.textContent = testimonial.role;
-                    card.appendChild(role);
-                }
-
-                card.appendChild(author);
-                carousel.appendChild(card);
-            });
-        }
-
         function initializeTestimonialsCarousel() {
-            const carousel = document.getElementById('testimonialsCarousel');
-            const prevBtn = document.querySelector('.testimonial-arrow.prev');
-            const nextBtn = document.querySelector('.testimonial-arrow.next');
-
             initInfiniteCarousel({
-                carousel: carousel,
-                prevBtn: prevBtn,
-                nextBtn: nextBtn,
+                carousel: document.getElementById('testimonialsCarousel'),
+                prevBtn: document.querySelector('.testimonial-arrow.prev'),
+                nextBtn: document.querySelector('.testimonial-arrow.next'),
                 itemSelector: '.testimonial-card'
             });
         }
 
-        async function loadSkills() {
-            try {
-                const response = await fetch('skills.json');
-                const skillsData = await response.json();
-                const grid = document.getElementById('skillsGrid');
-
-                const categoryLabels = {
-                    programming_languages: 'Programming Languages',
-                    software_development: 'Software Development',
-                    machine_learning: 'Machine Learning',
-                    cloud_and_infrastructure: 'Cloud & Infrastructure',
-                    ml_and_data_tools: 'ML & Data Tools',
-                    agentic_ai: 'Agentic AI',
-                    languages: 'Languages',
-                    other_activities: 'Other Activities'
-                };
-
-                Object.keys(skillsData).forEach(function(category) {
-                    const skills = skillsData[category];
-                    if (!Array.isArray(skills) || skills.length === 0) return;
-
-                    const label = categoryLabels[category] ||
-                        category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'skill-category';
-
-                    const h3 = document.createElement('h3');
-                    h3.textContent = label;
-                    categoryDiv.appendChild(h3);
-
-                    const tagsDiv = document.createElement('div');
-                    tagsDiv.className = 'skill-tags';
-
-                    skills.forEach(function(skill) {
-                        const tag = document.createElement('span');
-                        tag.className = 'skill-tag';
-                        tag.textContent = skill;
-                        tagsDiv.appendChild(tag);
-                    });
-
-                    categoryDiv.appendChild(tagsDiv);
-                    grid.appendChild(categoryDiv);
-                });
-            } catch (error) {
-                console.error('Error loading skills:', error);
-            }
-        }
-
-        async function loadJobs() {
-            try {
-                // Load the jobs list
-                const response = await fetch('jobs/jobs-list.json');
-                const jobsList = await response.json();
-
-                // Load each job file
-                const jobsData = await Promise.all(
-                    jobsList.map(jobFile => fetch(`jobs/${jobFile}.json`).then(r => r.json()))
-                );
-
-                // Build the carousel and data containers
-                buildCarousel(jobsData);
-                buildJobData(jobsData);
-
-                // Initialize carousel and popup functionality
-                initializeCarousel();
-                initializePopup();
-            } catch (error) {
-                console.error('Error loading jobs:', error);
-            }
-        }
-
-        function buildCarousel(jobsData) {
-            const carousel = document.getElementById('logoCarousel');
-
-            jobsData.forEach(job => {
-                const logoItem = document.createElement('div');
-                logoItem.className = 'logo-item';
-                logoItem.setAttribute('data-job-id', job.id);
-
-                const img = document.createElement('img');
-                img.src = job.logo;
-                img.alt = job.company || job.positions[0].company;
-                img.className = 'company-logo';
-
-                const titleText = document.createElement('div');
-                titleText.className = 'job-title-text';
-                // Get the title from either direct property or first position (for multiple positions)
-                titleText.textContent = job.title || job.positions[0].title;
-
-                logoItem.appendChild(img);
-                logoItem.appendChild(titleText);
-                carousel.appendChild(logoItem);
-            });
-        }
-
-        function buildJobData(jobsData) {
-            const container = document.getElementById('jobDataContainer');
-
-            jobsData.forEach(job => {
-                const jobDataDiv = document.createElement('div');
-                jobDataDiv.className = 'job-data';
-                jobDataDiv.id = job.id;
-
-                // Handle multiple positions (like NN) vs single position
-                if (job.positions) {
-                    job.positions.forEach((position, index) => {
-                        if (index > 0) {
-                            const hr = document.createElement('hr');
-                            hr.style.border = 'none';
-                            hr.style.borderTop = '2px solid #e0e0e0';
-                            hr.style.margin = '25px 0';
-                            jobDataDiv.appendChild(hr);
-                        }
-
-                        appendPositionContent(jobDataDiv, position);
-                    });
-                } else {
-                    appendPositionContent(jobDataDiv, job);
-                }
-
-                container.appendChild(jobDataDiv);
-            });
-        }
-
-        function appendPositionContent(container, position) {
-            const h3 = document.createElement('h3');
-            h3.textContent = position.title;
-            container.appendChild(h3);
-
-            const dateP = document.createElement('p');
-            dateP.className = 'job-date';
-            dateP.textContent = position.date;
-            container.appendChild(dateP);
-
-            const companyP = document.createElement('p');
-            companyP.className = 'job-company';
-            companyP.textContent = position.company;
-            container.appendChild(companyP);
-
-            const ul = document.createElement('ul');
-            position.responsibilities.forEach(resp => {
-                const li = document.createElement('li');
-                li.textContent = resp;
-                ul.appendChild(li);
-            });
-            container.appendChild(ul);
-
-            // Add skills if available
-            if (position.skills && position.skills.length > 0) {
-                const skillsDiv = document.createElement('div');
-                skillsDiv.className = 'job-skills';
-
-                const skillsTitle = document.createElement('h4');
-                skillsTitle.textContent = 'Skills Developed and Used';
-                skillsDiv.appendChild(skillsTitle);
-
-                const skillsTagsDiv = document.createElement('div');
-                skillsTagsDiv.className = 'job-skills-tags';
-
-                position.skills.forEach(skill => {
-                    const skillTag = document.createElement('span');
-                    skillTag.className = 'job-skill-tag';
-                    skillTag.textContent = skill;
-                    skillsTagsDiv.appendChild(skillTag);
-                });
-
-                skillsDiv.appendChild(skillsTagsDiv);
-                container.appendChild(skillsDiv);
-            }
-        }
-
         function initializeCarousel() {
-            const carousel = document.getElementById('logoCarousel');
-            const prevBtn = document.querySelector('.carousel-arrow.prev');
-            const nextBtn = document.querySelector('.carousel-arrow.next');
-
             initInfiniteCarousel({
-                carousel: carousel,
-                prevBtn: prevBtn,
-                nextBtn: nextBtn,
+                carousel: document.getElementById('logoCarousel'),
+                prevBtn: document.querySelector('.carousel-arrow.prev'),
+                nextBtn: document.querySelector('.carousel-arrow.next'),
                 itemSelector: '.logo-item'
             });
 
@@ -1441,8 +1191,7 @@
 
             allLogos.forEach(function(logo) {
                 logo.addEventListener('click', function() {
-                    const jobId = this.getAttribute('data-job-id');
-                    openPopup(jobId);
+                    openPopup(this.getAttribute('data-job-id'));
                 });
 
                 logo.setAttribute('role', 'button');
@@ -1450,8 +1199,7 @@
                 logo.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        const jobId = this.getAttribute('data-job-id');
-                        openPopup(jobId);
+                        openPopup(this.getAttribute('data-job-id'));
                     }
                 });
             });
@@ -1511,281 +1259,6 @@
 
             // Make openPopup accessible to event listeners
             window.openPopup = openPopup;
-        }
-    })();
-    </script>
-
-    <script>
-    (function() {
-        'use strict';
-
-        // Wait for jsPDF to load and DOM to be ready
-        document.addEventListener('DOMContentLoaded', function() {
-            const downloadBtn = document.getElementById('downloadResumeBtn');
-            if (downloadBtn) {
-                downloadBtn.addEventListener('click', generateResumePDF);
-            }
-        });
-
-        async function collectResumeData() {
-            try {
-                // Fetch JSON data
-                const aboutResponse = await fetch('about_me/page1.json');
-                const aboutData = await aboutResponse.json();
-
-                const jobsListResponse = await fetch('jobs/jobs-list.json');
-                const jobsList = await jobsListResponse.json();
-
-                const jobsData = await Promise.all(
-                    jobsList.map(jobFile => fetch(`jobs/${jobFile}.json`).then(r => r.json()))
-                );
-
-                const skillsResponse = await fetch('skills.json');
-                const skillsData = await skillsResponse.json();
-
-                // Parse Education from DOM
-                const educationElements = document.querySelectorAll('.education-item');
-                const education = Array.from(educationElements).map(el => ({
-                    title: el.querySelector('.education-title').textContent,
-                    school: el.querySelector('.education-school').textContent,
-                    years: el.querySelector('.education-years').textContent
-                }));
-
-                // Parse Certifications from DOM
-                const certElements = document.querySelectorAll('.cert-item');
-                const certifications = Array.from(certElements).map(el => ({
-                    name: el.querySelector('.cert-name').textContent,
-                    provider: el.querySelector('.cert-provider').textContent,
-                    id: el.querySelector('.cert-id').textContent
-                }));
-
-                return {
-                    about: aboutData,
-                    jobs: jobsData,
-                    skills: skillsData,
-                    education: education,
-                    certifications: certifications
-                };
-            } catch (error) {
-                console.error('Error collecting resume data:', error);
-                throw error;
-            }
-        }
-
-        async function generateResumePDF() {
-            try {
-                // Show loading state
-                const btn = document.getElementById('downloadResumeBtn');
-                const originalText = btn.textContent;
-                btn.textContent = 'Generating PDF...';
-                btn.disabled = true;
-
-                // Collect data
-                const data = await collectResumeData();
-
-                // Initialize jsPDF
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                let yPos = 20;
-                const leftMargin = 20;
-                const rightMargin = 190;
-                const lineHeight = 6;
-                const pageHeight = 280;
-
-                // Helper: Check if we need a new page
-                function checkPageBreak(neededSpace) {
-                    if (yPos + neededSpace > pageHeight) {
-                        doc.addPage();
-                        yPos = 20;
-                    }
-                }
-
-                // Header: Name and Title
-                doc.setFontSize(20);
-                doc.setFont('helvetica', 'bold');
-                doc.text('ROMAN SLAAP', leftMargin, yPos);
-                yPos += 8;
-
-                doc.setFontSize(12);
-                doc.setFont('helvetica', 'normal');
-                doc.text('Machine Learning Engineer & AI Consultant', leftMargin, yPos);
-                yPos += 10;
-
-                // Contact Info
-                doc.setFontSize(10);
-                doc.text('Haarlem, Netherlands | romanslaap@gmail.com | 0653551566', leftMargin, yPos);
-                yPos += 6;
-
-                // Website link - make it prominent and clickable
-                doc.setFontSize(11);
-                doc.setFont('helvetica', 'bold');
-                doc.setTextColor(212, 165, 116); // Gold color matching the theme
-                doc.textWithLink('romanslaap.nl', leftMargin, yPos, { url: 'https://romanslaap.nl' });
-                doc.setTextColor(0, 0, 0); // Reset to black
-                doc.setFont('helvetica', 'normal');
-                yPos += 10;
-
-                // Summary Section
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'bold');
-                doc.text('SUMMARY', leftMargin, yPos);
-                yPos += 7;
-
-                doc.setFontSize(11);
-                doc.setFont('helvetica', 'normal');
-                const summaryLines = doc.splitTextToSize(data.about.content, rightMargin - leftMargin);
-                summaryLines.forEach(line => {
-                    checkPageBreak(lineHeight);
-                    doc.text(line, leftMargin, yPos);
-                    yPos += lineHeight;
-                });
-                yPos += 5;
-
-                // Experience Section
-                checkPageBreak(20);
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'bold');
-                doc.text('EXPERIENCE', leftMargin, yPos);
-                yPos += 7;
-
-                // Helper function to add job position
-                function addJobPosition(position) {
-                    checkPageBreak(20);
-
-                    doc.setFontSize(11);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(position.title, leftMargin, yPos);
-                    yPos += lineHeight;
-
-                    doc.setFont('helvetica', 'normal');
-                    doc.text(`${position.company} | ${position.date}`, leftMargin, yPos);
-                    yPos += lineHeight + 1;
-
-                    // Responsibilities (limit to 4 key points for brevity)
-                    position.responsibilities.slice(0, 4).forEach(resp => {
-                        checkPageBreak(lineHeight * 2);
-                        const bulletLines = doc.splitTextToSize('• ' + resp, rightMargin - leftMargin - 3);
-                        bulletLines.forEach(line => {
-                            doc.text(line, leftMargin + 3, yPos);
-                            yPos += lineHeight;
-                        });
-                    });
-
-                    // Skills
-                    if (position.skills && position.skills.length > 0) {
-                        checkPageBreak(lineHeight);
-                        const skillsText = 'Skills: ' + position.skills.join(', ');
-                        const skillLines = doc.splitTextToSize(skillsText, rightMargin - leftMargin - 3);
-                        skillLines.forEach(line => {
-                            doc.text(line, leftMargin + 3, yPos);
-                            yPos += lineHeight;
-                        });
-                    }
-
-                    yPos += 5;
-                }
-
-                // Process jobs
-                data.jobs.forEach(job => {
-                    if (job.positions) {
-                        // Handle multiple positions (like NN)
-                        job.positions.forEach(position => {
-                            addJobPosition(position);
-                        });
-                    } else {
-                        // Single position
-                        addJobPosition(job);
-                    }
-                });
-
-                // Education Section
-                checkPageBreak(20);
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'bold');
-                doc.text('EDUCATION', leftMargin, yPos);
-                yPos += 7;
-
-                data.education.forEach(edu => {
-                    checkPageBreak(15);
-                    doc.setFontSize(11);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(edu.title, leftMargin, yPos);
-                    yPos += lineHeight;
-
-                    doc.setFont('helvetica', 'normal');
-                    doc.text(`${edu.school} | ${edu.years}`, leftMargin, yPos);
-                    yPos += lineHeight + 2;
-                });
-                yPos += 3;
-
-                // Certifications Section
-                checkPageBreak(20);
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'bold');
-                doc.text('CERTIFICATIONS', leftMargin, yPos);
-                yPos += 7;
-
-                doc.setFontSize(11);
-                doc.setFont('helvetica', 'normal');
-                data.certifications.forEach(cert => {
-                    checkPageBreak(lineHeight);
-                    const certText = `• ${cert.name} - ${cert.provider} (${cert.id})`;
-                    const certLines = doc.splitTextToSize(certText, rightMargin - leftMargin);
-                    certLines.forEach(line => {
-                        doc.text(line, leftMargin, yPos);
-                        yPos += lineHeight;
-                    });
-                });
-                yPos += 3;
-
-                // Skills Section
-                checkPageBreak(20);
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'bold');
-                doc.text('SKILLS', leftMargin, yPos);
-                yPos += 7;
-
-                // Format skills by category
-                Object.keys(data.skills).forEach(category => {
-                    if (Array.isArray(data.skills[category])) {
-                        checkPageBreak(10);
-
-                        // Category name
-                        doc.setFontSize(11);
-                        doc.setFont('helvetica', 'bold');
-                        const categoryTitle = category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        doc.text(categoryTitle + ':', leftMargin, yPos);
-                        yPos += lineHeight;
-
-                        // Skills list
-                        doc.setFont('helvetica', 'normal');
-                        const skillsList = data.skills[category].join(', ');
-                        const skillsLines = doc.splitTextToSize(skillsList, rightMargin - leftMargin - 5);
-                        skillsLines.forEach(line => {
-                            checkPageBreak(lineHeight);
-                            doc.text(line, leftMargin + 5, yPos);
-                            yPos += lineHeight;
-                        });
-                        yPos += 2;
-                    }
-                });
-
-                // Save PDF
-                doc.save('Roman_Slaap_Resume.pdf');
-
-                // Reset button
-                btn.textContent = originalText;
-                btn.disabled = false;
-
-            } catch (error) {
-                console.error('Error generating PDF:', error);
-                alert('Error generating resume PDF. Please try again.');
-
-                const btn = document.getElementById('downloadResumeBtn');
-                btn.textContent = 'Resume';
-                btn.disabled = false;
-            }
         }
     })();
     </script>

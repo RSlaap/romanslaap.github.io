@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ person.name }} - {{ headline }}</title>
+<style>
+    @page { size: A4; margin: 16mm 17mm; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 9.6pt; line-height: 1.4; color: #222; }
+    a { color: inherit; text-decoration: none; }
+    h1 { font-size: 21pt; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; }
+    .headline { font-size: 11.5pt; color: #8a6235; margin-top: 2px; }
+    .contact { margin-top: 6px; color: #555; }
+    .contact a { color: #8a6235; font-weight: 600; }
+    h2 { font-size: 10pt; text-transform: uppercase; letter-spacing: 1.5px; color: #8a6235;
+         border-bottom: 1.2px solid #d4a574; padding-bottom: 2px; margin: 14px 0 7px; }
+    .position { margin-bottom: 9px; break-inside: avoid; }
+    .position-head { display: flex; justify-content: space-between; gap: 12px; }
+    .position-title { font-weight: 700; }
+    .position-date { color: #555; white-space: nowrap; }
+    .position-company { color: #555; font-style: italic; }
+    ul { padding-left: 14px; margin-top: 3px; }
+    li { margin-bottom: 2px; }
+    .entry { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 3px; }
+    .skill-group { margin-bottom: 3px; }
+    .skill-group strong { font-weight: 700; }
+    .position-tech { color: #555; margin-top: 2px; }
+    .languages { margin-top: 5px; }
+    .clients { margin: 5px 0 0 14px; }
+    .client { margin-bottom: 6px; }
+    .client .position-title { font-weight: 600; }
+    .position-note { margin-top: 3px; color: #555; font-style: italic; }
+    .entry-detail { color: #555; margin: -2px 0 3px; }
+</style>
+</head>
+<body>
+{% macro position_body(position) %}
+            <div class="position-head">
+                <span class="position-title">{{ position.title }}</span>
+                <span class="position-date">{{ position.date }}</span>
+            </div>
+            <div class="position-company">{{ position.company }}</div>
+            <ul>
+                {% for bullet in position.bullets %}
+                <li>{{ bullet }}</li>
+                {% endfor %}
+            </ul>
+            {% if position.tech %}
+            <div class="position-tech"><strong>Tech:</strong> {{ position.tech | join(", ") }}</div>
+            {% endif %}
+            {% if position.note %}
+            <div class="position-note">{{ position.note }}</div>
+            {% endif %}
+{% endmacro %}
+    <header>
+        <h1>{{ person.name }}</h1>
+        <div class="headline">{{ headline }}{% for item in availability or [] %} &nbsp;|&nbsp; {{ item }}{% endfor %}</div>
+        <div class="contact">
+            {{ person.location }} &nbsp;|&nbsp; {{ person.email }} &nbsp;|&nbsp; {{ person.phone }} &nbsp;|&nbsp;
+            <a href="{{ person.website }}">{{ person.website | replace("https://", "") }}</a>
+            {% for key in ["linkedin", "github"] if person[key] is defined %}
+            &nbsp;|&nbsp; <a href="{{ person[key] }}">{{ person[key] | replace("https://", "") | replace("www.", "") }}</a>
+            {% endfor %}
+        </div>
+    </header>
+
+    <section>
+        <h2>Summary</h2>
+        <p>{{ summary }}</p>
+    </section>
+
+    <section>
+        <h2>Skills</h2>
+        {% for group in skill_groups %}
+        <div class="skill-group"><strong>{{ group.label }}:</strong> {{ group["items"] | join(", ") }}</div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+        {% for position in positions %}
+        <div class="position">
+            {{ position_body(position) }}
+            {% if position.clients %}
+            <div class="clients">
+                {% for client in position.clients %}
+                <div class="client">
+                    {{ position_body(client) }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        {% for item in education %}
+        <div class="entry">
+            <span><strong>{{ item.title }}</strong>, {{ item.school }}</span>
+            <span class="position-date">{{ item.years }}</span>
+        </div>
+        {% if item.detail is defined %}
+        <div class="entry-detail">{{ item.detail }}</div>
+        {% endif %}
+        {% endfor %}
+        <div class="languages"><strong>Languages:</strong> {{ languages | join(", ") }}</div>
+    </section>
+
+    <section>
+        <h2>Certifications</h2>
+        {% for cert in certifications %}
+        <div class="entry">
+            <span><strong>{{ cert.name }}</strong>, {{ cert.provider }}</span>
+            <span class="position-date">{{ cert.detail }}</span>
+        </div>
+        {% endfor %}
+    </section>
+</body>
+</html>

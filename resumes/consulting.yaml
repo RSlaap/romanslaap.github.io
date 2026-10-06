@@ -1,0 +1,12 @@
+# Freelance / advisory consulting roles.
+output: Roman_Slaap_Resume_AI_Consultant.pdf
+headline: Agentic AI Lifecycle Consultant
+summary: default
+tags: []  # bullet needs one of these; earlier tag = higher in the list
+max_bullets_per_position: 10
+exclude_positions: []           # position ids from data/career.yaml
+skill_groups: [llm, consulting, data_ml, cloud, engineering]
+exclude_skills: []
+max_tech_per_position: 8
+max_pages: 5
+publish: false                  # build locally / in CI only, don't put it on the website
