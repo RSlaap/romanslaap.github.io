@@ -71,7 +71,7 @@ def validate_variant(name, variant, career, position_ids):
     unknown_positions = set(variant.get("exclude_positions", [])) - position_ids
     if unknown_positions:
         fail(f"resumes/{name}.yaml: unknown position id(s) {sorted(unknown_positions)}")
-    unknown_groups = set(variant["skill_groups"]) - set(career["skill_groups"])
+    unknown_groups = {key for entry in variant["skill_groups"] for key in group_keys(entry)} - set(career["skill_groups"])
     if unknown_groups:
         fail(f"resumes/{name}.yaml: unknown skill group(s) {sorted(unknown_groups)}")
     unknown_skills = set(variant.get("exclude_skills", [])) - {skill["id"] for skill in career["skills"]}
@@ -116,9 +116,14 @@ def site_skill_groups(career):
             for key, label in career["skill_groups"].items()]
 
 
+def group_keys(entry):
+    """A variant's skill_groups entry is a group key, or {label, groups} merging several groups into one line."""
+    return entry["groups"] if isinstance(entry, dict) else [entry]
+
+
 def resume_skills(career, variant, positions):
     """Skills block and per-position tech lines, limited to skills the listed positions actually used."""
-    groups = variant["skill_groups"]
+    groups = {key for entry in variant["skill_groups"] for key in group_keys(entry)}
     shown = {s["id"]: s for s in career["skills"]
              if s["group"] in groups and s["id"] not in variant.get("exclude_skills", [])}
     every_position = positions + [client for position in positions for client in position["clients"]]
@@ -127,10 +132,12 @@ def resume_skills(career, variant, positions):
                             if skill in shown][:variant["max_tech_per_position"]]
     used = {skill for position in every_position for skill in position.get("used", [])}
     skill_groups = []
-    for key in groups:
-        items = [s["label"] for s in shown.values() if s["group"] == key and s["id"] in used]
+    for entry in variant["skill_groups"]:
+        keys = group_keys(entry)
+        items = [s["label"] for key in keys for s in shown.values() if s["group"] == key and s["id"] in used]
         if items:
-            skill_groups.append({"label": career["skill_groups"][key], "items": items})
+            label = entry["label"] if isinstance(entry, dict) else career["skill_groups"][entry]
+            skill_groups.append({"label": label, "items": items})
     return skill_groups
 
 

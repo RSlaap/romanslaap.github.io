@@ -54,7 +54,7 @@
 {% endmacro %}
     <header>
         <h1>{{ person.name }}</h1>
-        <div class="headline">{{ headline }}{% for item in availability or [] %} &nbsp;|&nbsp; {{ item }}{% endfor %}</div>
+        <div class="headline">{{ headline }}</div>
         <div class="contact">
             {{ person.location }} &nbsp;|&nbsp; {{ person.email }} &nbsp;|&nbsp; {{ person.phone }} &nbsp;|&nbsp;
             <a href="{{ person.website }}">{{ person.website | replace("https://", "") }}</a>
@@ -62,6 +62,7 @@
             &nbsp;|&nbsp; <a href="{{ person[key] }}">{{ person[key] | replace("https://", "") | replace("www.", "") }}</a>
             {% endfor %}
         </div>
+        {% if availability %}<div class="contact">{{ availability | join("  ·  ") }}</div>{% endif %}
     </header>
 
     <section>

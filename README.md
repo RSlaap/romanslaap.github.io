@@ -28,7 +28,8 @@ python -m http.server -d _site 8000   # preview at http://localhost:8000
   the ids a position used in its `used:`. The build fails on unknown ids and on skills no position uses.
   The website shows every skill; a resume shows only skills used by the roles on it.
 - **Tailor for a posting**: adjust a variant's `tags` order, `max_bullets_per_position`,
-  `exclude_positions`, `skill_groups` (which groups, in which order) or `exclude_skills`.
+  `exclude_positions`, `skill_groups` (which groups, in which order; `{label: ..., groups: [...]}` merges several
+  groups into one line) or `exclude_skills`.
   Variants only select and reorder facts; wording lives in `career.yaml`. Other variant keys:
   `max_tech_per_position` (length of each role's "Tech:" line), `availability`,
   `certifications` (names to keep) and `position_notes` (an extra line under a position).

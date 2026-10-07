@@ -1,15 +1,15 @@
 # Forward-deployed / hands-on AI engineering roles.
 output: Roman_Slaap_Resume_FDE.pdf
 headline: Agentic AI Engineer | Forward-deployed delivery for enterprise clients
-availability: [Available immediately, Open to travel]   # shown after the headline
+availability: [Available immediately, Open to travel]   # shown on a line under the contact details
 summary: default
 tags: [fde]     # bullet needs one of these; earlier tag = higher in the list
 max_bullets_per_position: 10
 exclude_positions: [ing]      # position ids from data/career.yaml
 # Skills block and per-role "Tech:" lines only show these groups, and only skills the listed roles used.
-skill_groups: [llm, evaluation, data_ml, engineering, cloud]
-exclude_skills: []            # skill ids from data/career.yaml
-max_tech_per_position: 8      # first N shown skills from each role's `used:` list
+skill_groups: [llm, evaluation, {label: Data & ML, groups: [ml_engineering, data_engineering]}, engineering, cloud]
+exclude_skills: [generative-models, small-data, graph-ingestion, javascript]   # skill ids from data/career.yaml
+max_tech_per_position: 10     # first N shown skills from each role's `used:` list
 certifications: [Tech Lead Development Programme, Data Engineering Accelerated]   # names from career.yaml
 position_notes:               # extra line under a position, keyed by position id
   ikea: Recommendation from Global Head of AI & Tech, Inter IKEA Group, available on request.

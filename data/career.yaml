@@ -17,10 +17,12 @@ headline: Forward Deployed Engineer and Agentic AI lifecycle consultant
 # Resume variants pick one of these by key.
 summaries:
   default: >-
-    I start with the problem, not the code: I talk to the people affected, figure out where it hurts, and build the solution that fixes it. 
-    With over 8 years of experience working with large enterprises in retail, automotive and insurance, I understand how they decide, build and ship, and where and how it tends to fail. 
-    I deliver systems that run efficiently in production through monitoring, evaluation and cost optimization.
-
+    I start by finding out where the real problems live, not with coding. I talk to the people affected, understand their pain points,
+    and build the solution that fixes them.
+    With over 8 years of experience working with large enterprises in retail, automotive and insurance,
+    I understand how they decide, build and ship, and where and how it tends to fail.
+    I deliver well-tested systems that other engineers can understand and work with, and that run efficiently in production through monitoring, evaluation and cost optimization.
+    
   machine_learning_engineer: >-
     Test
 
@@ -52,15 +54,15 @@ experience:
     logo: https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg
     positions:
       - id: ikea
-        title: AI-engineer
+        title: AI Engineer
         date: March 2024 - September 2026
         company: Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)
         bullets:
-          - text: Built and ran an agentic AI platform piloted with 40 regular users in 2 stores, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
+          - text: Built and managed an agentic AI platform in Python piloted with 40 regular users in 2 stores and over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
             tags: [fde, mle]
           - text: Built a self-service platform where managers create and manage their own agents, with a dashboard that tracks the questions coworkers ask and how they rate the answers.
             tags: [fde, mle]
-          - text: Developed the agent's frontend, including question suggestions, as-you-type completion and answer and data presentation, so coworkers could get a usable and readable result.
+          - text: Developed the agent's frontend (SvelteKit), including question suggestions, as-you-type completion and answer and data presentation, so coworkers could get a usable and readable result.
             tags: [fde]
           - text: Designed a modular agentic architecture connecting 8+ knowledge sources behind one interface, working with stakeholders to prioritize which sources to integrate first.            
             tags: [fde, mle]
@@ -69,7 +71,7 @@ experience:
           - text: Owned the platform and its server infrastructure end to end, keeping total running costs to about €200 a month (about €5 per regular user) while maintaining performance and reliability.
             tags: [fde, mle]
 
-        used: [python, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, auth, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management]
+        used: [python, fastapi, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management]
 
   - id: thoughtworks
     logo: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Thoughtworks_logo.png"
@@ -153,7 +155,7 @@ experience:
         date: 2020 - 2021
         company: Nationale Nederlanden, The Hague
         bullets:
-          - text: Led the "Rating Engine" project, designed and built an Azure cloud-based end-to-end pricing and model management system.
+          - text: Led the Rating Engine project, designing and building an Azure-based end-to-end pricing and model management system.
             tags: [fde, mle]
           - text: Applied statistical and predictive modeling under strong regulatory and business constraints.
             tags: [mle]
@@ -225,7 +227,9 @@ languages: [Dutch (Fluent), English (Fluent), Portuguese (Beginner)]
 skill_groups:
   llm: LLM & Agent Systems
   evaluation: Evaluation & Monitoring
-  data_ml: Data & ML
+  ml_engineering: ML Engineering & MLOps
+  data_science: Data Science & Statistics
+  data_engineering: Data Engineering
   engineering: Software Engineering
   cloud: Cloud
   consulting: Consulting & Leadership
@@ -241,33 +245,36 @@ skills:
   - {id: azure-ai-search, label: Azure AI Search, group: llm}
   - {id: vector-databases, label: Vector databases, group: llm}
   - {id: prompt-engineering, label: Prompt engineering, group: llm}
-  - {id: graph-ingestion, label: Graph-based data ingestion, group: llm}
 
   - {id: llm-evaluation, label: LLM evaluation, group: evaluation}
-  - {id: langfuse, label: Observability (Langfuse), group: evaluation}
+  - {id: langfuse, label: "Observability (Langfuse, MLflow)", group: evaluation}
   - {id: model-monitoring, label: Model monitoring, group: evaluation}
   - {id: cost-optimization, label: Cost optimization, group: evaluation}
 
-  - {id: statistical-modeling, label: Statistical modeling, group: data_ml}
-  - {id: predictive-modeling, label: Predictive modeling, group: data_ml}
-  - {id: bayesopt, label: Bayesian optimization (BoTorch), group: data_ml}
-  - {id: generative-models, label: Generative & adversarial models, group: data_ml}
-  - {id: small-data, label: Modeling with small datasets, group: data_ml}
-  - {id: human-in-the-loop, label: Human-in-the-loop ML, group: data_ml}
-  - {id: retraining, label: Automated retraining, group: data_ml}
-  - {id: time-series, label: Time-series analysis, group: data_ml}
-  - {id: anomaly-detection, label: Anomaly detection, group: data_ml}
-  - {id: lstm, label: LSTM, group: data_ml}
-  - {id: sql, label: SQL, group: data_ml}
-  - {id: pyspark, label: PySpark, group: data_ml}
-  - {id: etl, label: ETL pipelines, group: data_ml}
-  - {id: databricks, label: Databricks, group: data_ml}
-  - {id: pii, label: PII data handling, group: data_ml}
+  - {id: human-in-the-loop, label: Human-in-the-loop ML, group: ml_engineering}
+  - {id: retraining, label: Automated retraining, group: ml_engineering}
+
+  - {id: statistical-modeling, label: Statistical modeling, group: data_science}
+  - {id: predictive-modeling, label: Predictive modeling, group: data_science}
+  - {id: bayesopt, label: Bayesian optimization (BoTorch), group: data_science}
+  - {id: generative-models, label: Generative & adversarial models, group: data_science}
+  - {id: small-data, label: Modeling with small datasets, group: data_science}
+  - {id: time-series, label: Time-series analysis, group: data_science}
+  - {id: anomaly-detection, label: Anomaly detection, group: data_science}
+  - {id: lstm, label: LSTM, group: data_science}
+
+  - {id: sql, label: SQL, group: data_engineering}
+  - {id: pyspark, label: PySpark, group: data_engineering}
+  - {id: etl, label: ETL pipelines, group: data_engineering}
+  - {id: databricks, label: Databricks, group: data_engineering}
+  - {id: pii, label: PII data handling, group: data_engineering}
+  - {id: graph-ingestion, label: Graph-based data ingestion, group: data_engineering}
 
   - {id: python, label: Python, group: engineering}
   - {id: typescript, label: TypeScript, group: engineering}
   - {id: javascript, label: JavaScript, group: engineering}
   - {id: sveltekit, label: SvelteKit, group: engineering}
+  - {id: fastapi, label: FastAPI, group: engineering}
   - {id: api-development, label: API development, group: engineering}
   - {id: auth, label: Authentication & authorization, group: engineering}
   - {id: system-architecture, label: System architecture, group: engineering}
@@ -288,7 +295,7 @@ skills:
   # Not yet tied to a role. Add the id to a position's `used:` and uncomment to enable.
   # - {id: tdd, label: Test-driven development, group: engineering}
   # - {id: mlflow, label: MLflow, group: evaluation}
-  # - {id: kubeflow, label: Kubeflow, group: data_ml}
+  # - {id: kubeflow, label: Kubeflow, group: ml_engineering}
   # - {id: workshop-facilitation, label: Workshop facilitation, group: consulting}
 
 # Which resume variant the website's "Resume" button links to.

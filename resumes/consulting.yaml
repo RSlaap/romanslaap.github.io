@@ -5,7 +5,7 @@ summary: default
 tags: []  # bullet needs one of these; earlier tag = higher in the list
 max_bullets_per_position: 10
 exclude_positions: []           # position ids from data/career.yaml
-skill_groups: [llm, consulting, data_ml, cloud, engineering]
+skill_groups: [llm, consulting, {label: Data & ML, groups: [data_science, ml_engineering, data_engineering]}, cloud, engineering]
 exclude_skills: []
 max_tech_per_position: 8
 max_pages: 5
