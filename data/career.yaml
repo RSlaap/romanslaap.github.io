@@ -17,14 +17,16 @@ headline: Forward Deployed Engineer and Agentic AI lifecycle consultant
 # Resume variants pick one of these by key.
 summaries:
   default: >-
-    I start by finding out where the real problems live, not with coding. I talk to the people affected, understand their pain points,
-    and build the solution that fixes them.
+    For me, engineering is understanding the underlying problems first. I talk to the people involved and affected, understand their issues and wishes, and only then start designing and implementing a solution.
     With over 8 years of experience working with large enterprises in retail, automotive and insurance,
     I understand how they decide, build and ship, and where and how it tends to fail.
     I deliver well-tested systems that other engineers can understand and work with, and that run efficiently in production through monitoring, evaluation and cost optimization.
     
-  machine_learning_engineer: >-
-    Test
+  mle: >-
+    I build and run machine learning systems that work in production, from agentic AI platforms to end-to-end ML pipelines.
+    With over 8 years of experience at large enterprises in retail, automotive and insurance, I own the whole scope:
+    architecture, data pipelines, implementation, retraining, evaluation, monitoring and cost.
+    I deliver well-tested systems that other engineers can understand and work with.
 
 # Every bullet tag must be listed here. The build fails on typos.
 tags:
@@ -59,7 +61,10 @@ experience:
         company: Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)
         bullets:
           - text: Built and managed an agentic AI platform in Python piloted with 40 regular users in 2 stores and over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
-            tags: [fde, mle]
+            tags: [fde]
+          - text: Built and managed an agentic AI platform, piloted with 40 regular users in 2 stores and reaching over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
+            tags: [mle]
+            site: false
           - text: Built a self-service platform where managers create and manage their own agents, with a dashboard that tracks the questions coworkers ask and how they rate the answers.
             tags: [fde, mle]
           - text: Developed the agent's frontend (SvelteKit), including question suggestions, as-you-type completion and answer and data presentation, so coworkers could get a usable and readable result.
@@ -67,11 +72,17 @@ experience:
           - text: Designed a modular agentic architecture connecting 8+ knowledge sources behind one interface, working with stakeholders to prioritize which sources to integrate first.            
             tags: [fde, mle]
           - text: Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.
-            tags: [fde, mle]
+            tags: [fde]
+          - text: Built evaluation sets from user feedback, frequent questions and the questions experts deemed important to get right, and used them with observability and prompt optimization to measure response quality and improve the agent over time.
+            tags: [mle]
+            site: false
+          - text: "Shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
+            tags: [mle]
+            site: false
           - text: Owned the platform and its server infrastructure end to end, keeping total running costs to about €200 a month (about €5 per regular user) while maintaining performance and reliability.
             tags: [fde, mle]
 
-        used: [python, fastapi, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management]
+        used: [python, fastapi, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, github-actions, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management, mlflow]
 
   - id: thoughtworks
     logo: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Thoughtworks_logo.png"
@@ -104,9 +115,15 @@ experience:
           - text: Took a proof of concept to a production system on AWS in 6 months, giving pricing analysts near real-time competitor prices in place of manual lookups on competitor websites and in PDFs.
             tags: [fde, mle]
           - text: Built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
-            tags: [mle, fde]
+            tags: [fde]
+          - text: Designed the model architecture and built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
+            tags: [mle]
+            site: false
           - text: Car-part matching accuracy increased from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
-            tags: [mle, fde]
+            tags: [fde]
+          - text: Raised car-part matching accuracy from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
+            tags: [mle]
+            site: false
         stack: Python, AWS (container hosting, storage, monitoring)
         
         used: [python, aws, docker, predictive-modeling, human-in-the-loop, retraining, model-monitoring, system-architecture]
@@ -142,13 +159,16 @@ experience:
         company: Nationale Nederlanden, The Hague
         bullets:
           - text: Delivered statistical modeling and data science solutions for the Life & Pensions business unit.
-            tags: [fde, mle]
-          - text: Automated manual processes, including contract data extraction, reducing manual effort.
-            tags: [fde, mle]
+            tags: [fde]
+          - text: Led the Rating Engine project, designing and building an Azure-based end-to-end pricing and model management system.
+            tags: [mle]
+            site: false
           - text: Built CI/CD deployment pipelines to support continuous model development and release.
             tags: [mle]
+          - text: Automated manual processes, including contract data extraction, reducing manual effort.
+            tags: [fde, mle]
           - text: Built dashboards and visualizations to turn raw data into decision-ready information for business stakeholders.
-            tags: [mle]
+            tags: []
         used: [python, sql, azure, ci-cd, statistical-modeling]
       - id: nn-data-scientist
         title: Data Scientist
@@ -156,11 +176,11 @@ experience:
         company: Nationale Nederlanden, The Hague
         bullets:
           - text: Led the Rating Engine project, designing and building an Azure-based end-to-end pricing and model management system.
-            tags: [fde, mle]
+            tags: [fde]
           - text: Applied statistical and predictive modeling under strong regulatory and business constraints.
-            tags: [mle]
+            tags: []
           - text: Supported pricing teams with data-driven recommendations on damage insurance pricing policy.
-            tags: [mle]
+            tags: []
           - text: Led the data science chapter, coordinating knowledge sharing between 3 teams and 15 data scientists through regular sessions and shared coding and modeling standards.
             tags: [fde, mle]
         used: [python, sql, azure, statistical-modeling, predictive-modeling, coaching, community-building]
@@ -172,6 +192,9 @@ experience:
         bullets:
           - text: Built risk-premium, commercial pricing, and churn models across multiple insurance product lines using statistical and predictive modeling techniques.
             tags: [fde]
+          - text: Built risk-premium, commercial pricing and churn models across multiple insurance product lines under strict regulatory and business constraints.
+            tags: [mle]
+            site: false
         used: [python, statistical-modeling, predictive-modeling]
 
   - id: ing
@@ -253,6 +276,7 @@ skills:
 
   - {id: human-in-the-loop, label: Human-in-the-loop ML, group: ml_engineering}
   - {id: retraining, label: Automated retraining, group: ml_engineering}
+  - {id: mlflow, label: MLflow, group: ml_engineering}
 
   - {id: statistical-modeling, label: Statistical modeling, group: data_science}
   - {id: predictive-modeling, label: Predictive modeling, group: data_science}
@@ -279,6 +303,7 @@ skills:
   - {id: auth, label: Authentication & authorization, group: engineering}
   - {id: system-architecture, label: System architecture, group: engineering}
   - {id: ci-cd, label: CI/CD, group: engineering}
+  - {id: github-actions, label: GitHub Actions, group: engineering}
   - {id: docker, label: Docker, group: engineering}
   - {id: git, label: Git, group: engineering}
 
@@ -294,7 +319,6 @@ skills:
 
   # Not yet tied to a role. Add the id to a position's `used:` and uncomment to enable.
   # - {id: tdd, label: Test-driven development, group: engineering}
-  # - {id: mlflow, label: MLflow, group: evaluation}
   # - {id: kubeflow, label: Kubeflow, group: ml_engineering}
   # - {id: workshop-facilitation, label: Workshop facilitation, group: consulting}
 

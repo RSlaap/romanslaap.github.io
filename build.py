@@ -74,9 +74,9 @@ def validate_variant(name, variant, career, position_ids):
     unknown_groups = {key for entry in variant["skill_groups"] for key in group_keys(entry)} - set(career["skill_groups"])
     if unknown_groups:
         fail(f"resumes/{name}.yaml: unknown skill group(s) {sorted(unknown_groups)}")
-    unknown_skills = set(variant.get("exclude_skills", [])) - {skill["id"] for skill in career["skills"]}
+    unknown_skills = (set(variant.get("exclude_skills", [])) | set(variant.get("skill_labels", {}))) - {skill["id"] for skill in career["skills"]}
     if unknown_skills:
-        fail(f"resumes/{name}.yaml: unknown skill(s) in exclude_skills {sorted(unknown_skills)}")
+        fail(f"resumes/{name}.yaml: unknown skill(s) in exclude_skills or skill_labels {sorted(unknown_skills)}")
     if variant["summary"] not in career["summaries"]:
         fail(f"resumes/{name}.yaml: unknown summary '{variant['summary']}'")
     unknown_certs = set(variant.get("certifications", [])) - {cert["name"] for cert in career["certifications"]}
@@ -124,7 +124,8 @@ def group_keys(entry):
 def resume_skills(career, variant, positions):
     """Skills block and per-position tech lines, limited to skills the listed positions actually used."""
     groups = {key for entry in variant["skill_groups"] for key in group_keys(entry)}
-    shown = {s["id"]: s for s in career["skills"]
+    relabel = variant.get("skill_labels", {})
+    shown = {s["id"]: {**s, "label": relabel.get(s["id"], s["label"])} for s in career["skills"]
              if s["group"] in groups and s["id"] not in variant.get("exclude_skills", [])}
     every_position = positions + [client for position in positions for client in position["clients"]]
     for position in every_position:

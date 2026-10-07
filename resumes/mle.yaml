@@ -1,0 +1,19 @@
+# Machine learning engineering / MLOps roles.
+output: Roman_Slaap_Resume_MLE.pdf
+headline: Machine Learning Engineer | Agentic AI Engineer
+availability: [Available immediately]   # shown on a line under the contact details
+summary: mle
+tags: [mle]     # bullet needs one of these; earlier tag = higher in the list
+max_bullets_per_position: 6
+exclude_positions: [ing]      # position ids from data/career.yaml
+# Skills block and per-role "Tech:" lines only show these groups, and only skills the listed roles used.
+skill_groups: [ml_engineering, data_engineering, engineering, cloud, evaluation, llm, data_science]
+exclude_skills: [generative-models, small-data, bayesopt, javascript]   # skill ids from data/career.yaml
+skill_labels:                 # resume-only label for a skill id
+  langfuse: Observability (Langfuse)   # MLflow is listed under ML Engineering & MLOps here
+max_tech_per_position: 11     # first N shown skills from each role's `used:` list
+certifications: [Tech Lead Development Programme, Data Engineering Accelerated]   # names from career.yaml
+position_notes:               # extra line under a position, keyed by position id
+  ikea: Recommendation from Global Head of AI & Tech, Inter IKEA Group, available on request.
+max_pages: 2
+publish: true                 # also deploy the PDF on the website

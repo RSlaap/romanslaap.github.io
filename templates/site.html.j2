@@ -916,7 +916,7 @@
                     <p class="job-date">{{ position.date }}</p>
                     <p class="job-company">{{ position.company }}</p>
                     <ul>
-                        {% for bullet in position.bullets %}
+                        {% for bullet in position.bullets if bullet.site is not false %}
                         <li>{{ bullet.text }}</li>
                         {% endfor %}
                     </ul>

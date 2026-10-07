@@ -23,6 +23,7 @@ python -m http.server -d _site 8000   # preview at http://localhost:8000
 
 - **Change a fact**: edit `data/career.yaml`. Website and all resumes pick it up.
 - **New job**: add an entry to `experience` (top = newest). Give each bullet one or more `tags`.
+  `site: false` on a bullet keeps it off the website (for resume-only rewordings).
 - **New resume variant**: copy `resumes/fde.yaml`, change `output`, `headline`, `tags`, limits.
 - **Skills**: define each skill once under `skills:` in `career.yaml` (id, label, group), and list
   the ids a position used in its `used:`. The build fails on unknown ids and on skills no position uses.
@@ -31,7 +32,7 @@ python -m http.server -d _site 8000   # preview at http://localhost:8000
   `exclude_positions`, `skill_groups` (which groups, in which order; `{label: ..., groups: [...]}` merges several
   groups into one line) or `exclude_skills`.
   Variants only select and reorder facts; wording lives in `career.yaml`. Other variant keys:
-  `max_tech_per_position` (length of each role's "Tech:" line), `availability`,
+  `max_tech_per_position` (length of each role's "Tech:" line), `skill_labels` (resume-only label per skill id), `availability`,
   `certifications` (names to keep) and `position_notes` (an extra line under a position).
 - **Resume-only layout**: `client_of: <position id>` nests a position under that one as a
   client project; `resume_merge` on an experience entry collapses its positions into one
