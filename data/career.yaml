@@ -28,10 +28,18 @@ summaries:
     architecture, data pipelines, implementation, retraining, evaluation, monitoring and cost.
     I deliver well-tested systems that other engineers can understand and work with.
 
+  ds: >-
+    I build statistical, predictive and forecasting models that hold up in production.
+    With over 8 years of experience at large enterprises in insurance, automotive and retail, I take models from first analysis
+    to monitored, automatically retrained systems: from forecasting the probability and size of insurance damages under strict
+    regulatory constraints to end-to-endproduction pipelines.
+    I explain results to business stakeholders and write tested code that other engineers can maintain.
+
 # Every bullet tag must be listed here. The build fails on typos.
 tags:
   fde: Hands-on building and shipping with/for a client
   mle: Pipelines, infrastructure, CI/CD, monitoring, retraining
+  ds: Statistics, predictive modeling, forecasting
 
 about_pages:
   - title: About Me
@@ -63,7 +71,7 @@ experience:
           - text: Built and managed an agentic AI platform in Python piloted with 40 regular users in 2 stores and over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
             tags: [fde]
           - text: Built and managed an agentic AI platform, piloted with 40 regular users in 2 stores and reaching over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
-            tags: [mle]
+            tags: [mle, ds]
             site: false
           - text: Built a self-service platform where managers create and manage their own agents, with a dashboard that tracks the questions coworkers ask and how they rate the answers.
             tags: [fde, mle]
@@ -74,13 +82,13 @@ experience:
           - text: Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.
             tags: [fde]
           - text: Built evaluation sets from user feedback, frequent questions and the questions experts deemed important to get right, and used them with observability and prompt optimization to measure response quality and improve the agent over time.
-            tags: [mle]
+            tags: [mle, ds]
             site: false
           - text: "Shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
             tags: [mle]
             site: false
           - text: Owned the platform and its server infrastructure end to end, keeping total running costs to about €200 a month (about €5 per regular user) while maintaining performance and reliability.
-            tags: [fde, mle]
+            tags: [fde, mle, ds]
 
         used: [python, fastapi, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, github-actions, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management, mlflow]
 
@@ -95,7 +103,7 @@ experience:
           - text: Wrote 2 technical proposals for prospective clients; both became signed statements of work, leading to the Mondelez and Mercedes-Benz projects.
             tags: [fde]
           - text: Delivered client projects across data science, ML engineering and generative AI, from problem definition to production.
-            tags: [fde, mle]
+            tags: [fde, mle, ds]
           - text: Coached 2 junior engineers during a client project on software engineering and ML engineering practices.
             tags: [mle, fde]
           - text: Led the office's lunch and learn program, bringing in speakers from inside and outside the company several times a month, and gave talks on AI and data science for colleagues.
@@ -113,16 +121,16 @@ experience:
         summary: Pricing analysts spent a lot of time looking up competitor prices on websites and reading through PDFs of competitor pricing data.
         bullets:
           - text: Took a proof of concept to a production system on AWS in 6 months, giving pricing analysts near real-time competitor prices in place of manual lookups on competitor websites and in PDFs.
-            tags: [fde, mle]
+            tags: [fde, mle, ds]
           - text: Built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
             tags: [fde]
           - text: Designed the model architecture and built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
-            tags: [mle]
+            tags: [mle, ds]
             site: false
           - text: Car-part matching accuracy increased from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
             tags: [fde]
           - text: Raised car-part matching accuracy from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
-            tags: [mle]
+            tags: [mle, ds]
             site: false
         stack: Python, AWS (container hosting, storage, monitoring)
         
@@ -139,7 +147,7 @@ experience:
         summary: Developing a new recipe took many costly rounds of testing with product experts and consumer panels.
         bullets:
           - text: Built generative and Bayesian optimization models to help product experts optimize recipe formulations with extremely small datasets (fewer than 20 data points).
-            tags: [fde]
+            tags: [fde, ds]
           - text: Combined a generative adversarial architecture with human-in-the-loop input from experts and consumer test panels.
             tags: [fde]
 
@@ -160,16 +168,22 @@ experience:
         bullets:
           - text: Delivered statistical modeling and data science solutions for the Life & Pensions business unit.
             tags: [fde]
+          - text: Built models that forecast the probability and size of insurance damages (claim frequency and severity), validated on later time periods than they were trained on, used to set risk premiums and commercial prices across multiple product lines under strict regulatory constraints.
+            tags: [ds]
+            site: false
+          - text: Built churn models predicting which customers would leave, and supported pricing teams with data-driven recommendations on damage insurance pricing policy.
+            tags: [ds]
+            site: false
           - text: Led the Rating Engine project, designing and building an Azure-based end-to-end pricing and model management system.
-            tags: [mle]
+            tags: [mle, ds]
             site: false
           - text: Built CI/CD deployment pipelines to support continuous model development and release.
-            tags: [mle]
+            tags: [mle, ds]
           - text: Automated manual processes, including contract data extraction, reducing manual effort.
             tags: [fde, mle]
           - text: Built dashboards and visualizations to turn raw data into decision-ready information for business stakeholders.
             tags: []
-        used: [python, sql, azure, ci-cd, statistical-modeling]
+        used: [python, forecasting, glm, scikit-learn, sql, azure, ci-cd, statistical-modeling]
       - id: nn-data-scientist
         title: Data Scientist
         date: 2020 - 2021
@@ -182,7 +196,7 @@ experience:
           - text: Supported pricing teams with data-driven recommendations on damage insurance pricing policy.
             tags: []
           - text: Led the data science chapter, coordinating knowledge sharing between 3 teams and 15 data scientists through regular sessions and shared coding and modeling standards.
-            tags: [fde, mle]
+            tags: [fde, mle, ds]
         used: [python, sql, azure, statistical-modeling, predictive-modeling, coaching, community-building]
 
       - id: nn-pricing-analyst
@@ -202,14 +216,17 @@ experience:
     positions:
       - id: ing
         title: Time-series Analysis Intern
-        date: Sept 2018 - March 2019
+        date: September 2017 - August 2018
         company: ING, Amsterdam
         bullets:
           - text: Anomaly detection in transaction-based data
             tags: [fde, mle]
+          - text: Built LSTM models that forecast expected transaction behaviour over time and flagged anomalies as deviations from the forecast, working with sensitive (PII) transaction data.
+            tags: [ds]
+            site: false
           - text: Thesis internship
             tags: [fde, mle]
-        used: [python, time-series, anomaly-detection, lstm, pii]
+        used: [python, forecasting, time-series, lstm, anomaly-detection, pii]
 
 education:
   - title: MSc Computational Science
@@ -280,10 +297,13 @@ skills:
 
   - {id: statistical-modeling, label: Statistical modeling, group: data_science}
   - {id: predictive-modeling, label: Predictive modeling, group: data_science}
+  - {id: forecasting, label: Forecasting, group: data_science}
+  - {id: time-series, label: Time-series analysis, group: data_science}
+  - {id: glm, label: GLMs, group: data_science}
+  - {id: scikit-learn, label: scikit-learn, group: data_science}
   - {id: bayesopt, label: Bayesian optimization (BoTorch), group: data_science}
   - {id: generative-models, label: Generative & adversarial models, group: data_science}
   - {id: small-data, label: Modeling with small datasets, group: data_science}
-  - {id: time-series, label: Time-series analysis, group: data_science}
   - {id: anomaly-detection, label: Anomaly detection, group: data_science}
   - {id: lstm, label: LSTM, group: data_science}
 
