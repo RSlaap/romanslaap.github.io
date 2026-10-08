@@ -12,7 +12,7 @@ person:
   # github: https://github.com/...   # shown on resumes once filled in
 
 # Subtitle under your name on the website.
-headline: Forward Deployed Engineer and Agentic AI lifecycle consultant
+headline: Agentic AI Engineer | Forward-deployed delivery for enterprise clients
 
 # Resume variants pick one of these by key.
 summaries:
@@ -116,7 +116,7 @@ experience:
       - id: mercedes
         title: Machine Learning Engineer
         date: April 2023 - November 2023
-        company: Mercedes-Benz (via Thoughtworks), Frankfurt (remote)
+        company: Mercedes-Benz (via Thoughtworks), Stuttgart (remote)
         client_of: thoughtworks   # resumes show this as a client project under that position
         summary: Pricing analysts spent a lot of time looking up competitor prices on websites and reading through PDFs of competitor pricing data.
         bullets:
@@ -164,7 +164,7 @@ experience:
       - id: nn-data-scientist-engineer
         title: Data Scientist/Engineer
         date: January 2021 - 2022
-        company: Nationale Nederlanden, The Hague
+        company: Nationale Nederlanden, Rotterdam
         bullets:
           - text: Delivered statistical modeling and data science solutions for the Life & Pensions business unit.
             tags: [fde]
