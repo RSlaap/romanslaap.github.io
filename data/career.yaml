@@ -80,8 +80,6 @@ experience:
             site: false
           - text: Built a self-service platform where managers create and manage their own agents, with a dashboard that tracks the questions coworkers ask and how they rate the answers.
             tags: [fde, mle]
-          - text: Developed the agent's frontend (SvelteKit), including question suggestions, as-you-type completion and answer and data presentation, so coworkers could get a usable and readable result.
-            tags: [fde]
           - text: Designed a modular agentic architecture connecting 8+ knowledge sources behind one interface, working with stakeholders to prioritize which sources to integrate first.            
             tags: [fde, mle]
           - text: "Shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
@@ -90,7 +88,7 @@ experience:
           - text: Owned the platform and its server infrastructure end to end, keeping total running costs to about €200 a month (about €5 per regular user) while maintaining performance and reliability.
             tags: [fde, mle, ds]
 
-        used: [python, fastapi, terraform, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, github-actions, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management, mlflow, pytest, docker]
+        used: [python, fastapi, terraform, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, github-actions, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management, mlflow, pytest, docker, typescript, sveltekit]
 
   - id: thoughtworks
     logo: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Thoughtworks_logo.png"
@@ -323,9 +321,6 @@ skills:
 
   - {id: python, label: Python, group: engineering}
   - {id: pytest, label: Testing (pytest), group: engineering}
-  - {id: typescript, label: TypeScript, group: engineering}
-  - {id: javascript, label: JavaScript, group: engineering}
-  - {id: sveltekit, label: SvelteKit, group: engineering}
   - {id: fastapi, label: FastAPI, group: engineering}
   - {id: api-development, label: API development, group: engineering}
   - {id: auth, label: Authentication & authorization, group: engineering}
@@ -335,6 +330,9 @@ skills:
   - {id: gitlab-ci, label: GitLab CI, group: engineering}
   - {id: docker, label: Docker, group: engineering}
   - {id: git, label: Git, group: engineering}
+  - {id: typescript, label: TypeScript, group: engineering}
+  - {id: javascript, label: JavaScript, group: engineering}
+  - {id: sveltekit, label: SvelteKit, group: engineering}
 
   - {id: azure, label: Azure, group: cloud}
   - {id: aws, label: AWS, group: cloud}
