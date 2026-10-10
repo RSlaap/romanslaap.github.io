@@ -1,18 +1,21 @@
 # Data science / forecasting roles (e.g. Stedin via Morgan Black).
 output: Roman_Slaap_Resume_DS.pdf
-headline: Data Scientist / ML Engineer | Forecasting & Production ML
+headline: Data Scientist / ML Engineer | Time-series Forecasting & Production ML
 availability: [Available immediately]   # shown on a line under the contact details
 summary: ds
 tags: [ds]      # bullet needs one of these; earlier tag = higher in the list
 max_bullets_per_position: 5
 exclude_positions: []           # position ids from data/career.yaml
-skill_groups: [data_science, ml_engineering, data_engineering, engineering, cloud, {label: LLM & Agent Systems, groups: [llm, evaluation]}]
-exclude_skills: [generative-models, javascript, typescript, sveltekit, auth, graph-ingestion, langchain, vector-databases, prompt-engineering, azure-ai-search, mcp, cost-optimization, model-monitoring]
+skill_groups: [data_science, {label: ML Engineering & MLOps, groups: [ml_engineering, evaluation]}, data_engineering, engineering, cloud, llm]
+exclude_skills: [generative-models, javascript, typescript, sveltekit, auth, graph-ingestion, langchain, vector-databases, prompt-engineering, azure-ai-search, mcp, cost-optimization, sagemaker, gitlab-ci, terraform, arm-templates]   # model-monitoring kept: forecast-quality monitoring is in the Stedin JD
 skill_labels:
   langfuse: Observability (Langfuse)   # MLflow is listed under ML Engineering & MLOps here
+  mlflow: MLflow (experiment tracking, model registry)
+  databricks: Databricks (Azure)
 max_tech_per_position: 8
 certifications: [Tech Lead Development Programme, Data Engineering Accelerated]
 position_notes:
   ikea: Recommendation from Global Head of AI & Tech, Inter IKEA Group, available on request.
+  ing: "MSc thesis, Appendix B: a full mathematical breakdown of how XGBoost works."
 max_pages: 2
 publish: false                  # client-specific: build locally, don't put it on the website

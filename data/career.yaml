@@ -23,17 +23,18 @@ summaries:
     I deliver well-tested systems that other engineers can understand and work with, and that run efficiently in production through monitoring, evaluation and cost optimization.
     
   mle: >-
-    I build and run machine learning systems that work in production, from agentic AI platforms to end-to-end ML pipelines.
-    With over 8 years of experience at large enterprises in retail, automotive and insurance, I own the whole scope:
-    architecture, data pipelines, implementation, retraining, evaluation, monitoring and cost.
+    I build, deploy and run machine learning systems in production, from end-to-end ML pipelines on AWS and Azure to agentic AI platforms.
+    With over 8 years of experience at large enterprises in insurance, automotive and retail, I own the whole scope:
+    architecture, data pipelines, containerized deployment, CI/CD, retraining, evaluation, monitoring and cost.
     I deliver well-tested systems that other engineers can understand and work with.
 
   ds: >-
-    I build statistical, predictive and forecasting models that hold up in production.
+    I build forecasting and predictive models that hold up in production.
     With over 8 years of experience at large enterprises in insurance, automotive and retail, I take models from first analysis
-    to monitored, automatically retrained systems: from forecasting the probability and size of insurance damages under strict
-    regulatory constraints to end-to-endproduction pipelines.
-    I explain results to business stakeholders and write tested code that other engineers can maintain.
+    and backtesting to monitored, automatically retrained systems: from time-series forecasting at ING and forecasting the
+    probability and size of insurance damages under strict regulatory constraints, to end-to-end production pipelines on Azure,
+    Databricks and AWS. I explain results and trade-offs to business stakeholders, write tested, reviewed code that other engineers
+    can maintain, and share what I learn through coaching, talks and shared modeling standards.
 
 # Every bullet tag must be listed here. The build fails on typos.
 tags:
@@ -73,6 +74,12 @@ experience:
           - text: Built and managed an agentic AI platform, piloted with 40 regular users in 2 stores and reaching over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
             tags: [mle, ds]
             site: false
+          - text: Built evaluation sets from user feedback, frequent questions and the questions experts deemed important to get right, and used them with observability and prompt optimization to measure response quality and improve the agent over time.
+            tags: [mle, ds]
+            site: false
+          - text: "Containerized every service with Docker, deployed the backend infrastructure with Terraform and shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
+            tags: [mle]
+            site: false
           - text: Built a self-service platform where managers create and manage their own agents, with a dashboard that tracks the questions coworkers ask and how they rate the answers.
             tags: [fde, mle]
           - text: Developed the agent's frontend (SvelteKit), including question suggestions, as-you-type completion and answer and data presentation, so coworkers could get a usable and readable result.
@@ -81,16 +88,13 @@ experience:
             tags: [fde, mle]
           - text: Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.
             tags: [fde]
-          - text: Built evaluation sets from user feedback, frequent questions and the questions experts deemed important to get right, and used them with observability and prompt optimization to measure response quality and improve the agent over time.
-            tags: [mle, ds]
-            site: false
           - text: "Shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
-            tags: [mle]
+            tags: [ds]
             site: false
           - text: Owned the platform and its server infrastructure end to end, keeping total running costs to about €200 a month (about €5 per regular user) while maintaining performance and reliability.
             tags: [fde, mle, ds]
 
-        used: [python, fastapi, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, github-actions, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management, mlflow]
+        used: [python, fastapi, terraform, typescript, sveltekit, langgraph, mcp, azure-ai-search, langfuse, databricks, auth, github-actions, agentic-architecture, rag, langchain, vector-databases, prompt-engineering, graph-ingestion, llm-evaluation, cost-optimization, api-development, javascript, system-architecture, etl, pyspark, git, azure, stakeholder-management, mlflow, pytest, docker]
 
   - id: thoughtworks
     logo: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Thoughtworks_logo.png"
@@ -103,9 +107,9 @@ experience:
           - text: Wrote 2 technical proposals for prospective clients; both became signed statements of work, leading to the Mondelez and Mercedes-Benz projects.
             tags: [fde]
           - text: Delivered client projects across data science, ML engineering and generative AI, from problem definition to production.
-            tags: [fde, mle, ds]
+            tags: [fde, mle]
           - text: Coached 2 junior engineers during a client project on software engineering and ML engineering practices.
-            tags: [mle, fde]
+            tags: [mle, fde, ds]
           - text: Led the office's lunch and learn program, bringing in speakers from inside and outside the company several times a month, and gave talks on AI and data science for colleagues.
             tags: [fde]
         used: [stakeholder-management, client-acquisition, proposal-writing, presenting, coaching, community-building]
@@ -127,6 +131,9 @@ experience:
           - text: Designed the model architecture and built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
             tags: [mle, ds]
             site: false
+          - text: Containerized the models with Docker, deployed them with AWS SageMaker and automated builds and releases with GitLab CI.
+            tags: [mle]
+            site: false
           - text: Car-part matching accuracy increased from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
             tags: [fde]
           - text: Raised car-part matching accuracy from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
@@ -134,7 +141,7 @@ experience:
             site: false
         stack: Python, AWS (container hosting, storage, monitoring)
         
-        used: [python, aws, docker, predictive-modeling, human-in-the-loop, retraining, model-monitoring, system-architecture]
+        used: [python, aws, sagemaker, docker, gitlab-ci, predictive-modeling, human-in-the-loop, retraining, model-monitoring, system-architecture]
 
   - id: mondelez
     logo: https://upload.wikimedia.org/wikipedia/commons/c/c7/Mondelez_international_2012_logo.svg
@@ -147,11 +154,14 @@ experience:
         summary: Developing a new recipe took many costly rounds of testing with product experts and consumer panels.
         bullets:
           - text: Built generative and Bayesian optimization models to help product experts optimize recipe formulations with extremely small datasets (fewer than 20 data points).
-            tags: [fde, ds]
+            tags: [fde]
+          - text: Built generative and Bayesian optimization models, with Gaussian processes choosing which candidate recipes to test next, helping product experts optimize recipes from fewer than 20 data points.
+            tags: [ds]
+            site: false
           - text: Combined a generative adversarial architecture with human-in-the-loop input from experts and consumer test panels.
             tags: [fde]
 
-        used: [python, bayesopt, generative-models, small-data, human-in-the-loop, azure, ci-cd]
+        used: [python, gaussian-processes, bayesopt, generative-models, small-data, human-in-the-loop, azure, ci-cd]
 
   - id: nn
     logo: https://upload.wikimedia.org/wikipedia/commons/0/02/NN_Group_logo.jpeg
@@ -168,22 +178,28 @@ experience:
         bullets:
           - text: Delivered statistical modeling and data science solutions for the Life & Pensions business unit.
             tags: [fde]
-          - text: Built models that forecast the probability and size of insurance damages (claim frequency and severity), validated on later time periods than they were trained on, used to set risk premiums and commercial prices across multiple product lines under strict regulatory constraints.
+          - text: Built models that forecast the probability and size of insurance damages (claim frequency and severity), backtested on later time periods than they were trained on (out-of-time validation), used to set risk premiums and commercial prices across multiple product lines under strict regulatory constraints.
+            tags: [ds]
+            site: false
+          - text: Benchmarked the explainable linear production models against gradient boosting (XGBoost) to measure what explainability cost in accuracy, and used XGBoost for experiments and internal models.
             tags: [ds]
             site: false
           - text: Built churn models predicting which customers would leave, and supported pricing teams with data-driven recommendations on damage insurance pricing policy.
-            tags: [ds]
+            tags: []   # was ds; left off the DS resume to keep it at 2 pages
             site: false
           - text: Led the Rating Engine project, designing and building an Azure-based end-to-end pricing and model management system.
             tags: [mle, ds]
             site: false
           - text: Built CI/CD deployment pipelines to support continuous model development and release.
-            tags: [mle, ds]
+            tags: [ds]
+          - text: Built CI/CD deployment pipelines and Azure infrastructure as code (ARM templates) to support continuous model development and release.
+            tags: [mle]
+            site: false
           - text: Automated manual processes, including contract data extraction, reducing manual effort.
             tags: [fde, mle]
           - text: Built dashboards and visualizations to turn raw data into decision-ready information for business stakeholders.
             tags: []
-        used: [python, forecasting, glm, scikit-learn, sql, azure, ci-cd, statistical-modeling]
+        used: [python, forecasting, backtesting, glm, xgboost, scikit-learn, sql, azure, ci-cd, statistical-modeling, arm-templates]
       - id: nn-data-scientist
         title: Data Scientist
         date: 2020 - 2021
@@ -196,7 +212,10 @@ experience:
           - text: Supported pricing teams with data-driven recommendations on damage insurance pricing policy.
             tags: []
           - text: Led the data science chapter, coordinating knowledge sharing between 3 teams and 15 data scientists through regular sessions and shared coding and modeling standards.
-            tags: [fde, mle, ds]
+            tags: [fde, mle]
+          - text: Led the data science chapter (3 teams, 15 data scientists) with regular knowledge-sharing sessions and shared coding and modeling standards; gave a tutorial on how XGBoost works and how to use it.
+            tags: [ds]
+            site: false
         used: [python, sql, azure, statistical-modeling, predictive-modeling, coaching, community-building]
 
       - id: nn-pricing-analyst
@@ -294,12 +313,16 @@ skills:
   - {id: human-in-the-loop, label: Human-in-the-loop ML, group: ml_engineering}
   - {id: retraining, label: Automated retraining, group: ml_engineering}
   - {id: mlflow, label: MLflow, group: ml_engineering}
+  - {id: sagemaker, label: AWS SageMaker, group: ml_engineering}
 
-  - {id: statistical-modeling, label: Statistical modeling, group: data_science}
-  - {id: predictive-modeling, label: Predictive modeling, group: data_science}
   - {id: forecasting, label: Forecasting, group: data_science}
   - {id: time-series, label: Time-series analysis, group: data_science}
+  - {id: backtesting, label: Backtesting & out-of-time validation, group: data_science}
+  - {id: statistical-modeling, label: Statistical modeling, group: data_science}
+  - {id: predictive-modeling, label: Predictive modeling, group: data_science}
   - {id: glm, label: GLMs, group: data_science}
+  - {id: xgboost, label: Gradient boosting (XGBoost), group: data_science}
+  - {id: gaussian-processes, label: Probabilistic modeling (Gaussian processes), group: data_science}
   - {id: scikit-learn, label: scikit-learn, group: data_science}
   - {id: bayesopt, label: Bayesian optimization (BoTorch), group: data_science}
   - {id: generative-models, label: Generative & adversarial models, group: data_science}
@@ -315,6 +338,7 @@ skills:
   - {id: graph-ingestion, label: Graph-based data ingestion, group: data_engineering}
 
   - {id: python, label: Python, group: engineering}
+  - {id: pytest, label: Testing (pytest), group: engineering}
   - {id: typescript, label: TypeScript, group: engineering}
   - {id: javascript, label: JavaScript, group: engineering}
   - {id: sveltekit, label: SvelteKit, group: engineering}
@@ -324,11 +348,14 @@ skills:
   - {id: system-architecture, label: System architecture, group: engineering}
   - {id: ci-cd, label: CI/CD, group: engineering}
   - {id: github-actions, label: GitHub Actions, group: engineering}
+  - {id: gitlab-ci, label: GitLab CI, group: engineering}
   - {id: docker, label: Docker, group: engineering}
   - {id: git, label: Git, group: engineering}
 
   - {id: azure, label: Azure, group: cloud}
   - {id: aws, label: AWS, group: cloud}
+  - {id: terraform, label: Terraform, group: cloud}
+  - {id: arm-templates, label: ARM templates, group: cloud}
 
   - {id: stakeholder-management, label: Stakeholder management, group: consulting}
   - {id: client-acquisition, label: Client acquisition, group: consulting}
