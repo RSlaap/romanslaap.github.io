@@ -4,7 +4,7 @@ headline: Machine Learning Engineer | MLOps & Production ML
 availability: [Available immediately]   # shown on a line under the contact details
 summary: mle
 tags: [mle]     # bullet needs one of these; earlier tag = higher in the list
-max_bullets_per_position: 6
+max_bullets_per_position: 7
 exclude_positions: [ing]      # position ids from data/career.yaml
 # Skills block and per-role "Tech:" lines only show these groups, and only skills the listed roles used.
 skill_groups: [ml_engineering, data_engineering, engineering, cloud, evaluation, llm, data_science]

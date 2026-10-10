@@ -4,7 +4,7 @@ headline: Agentic AI Engineer | Forward-deployed delivery for enterprise clients
 availability: [Available immediately, Open to travel]   # shown on a line under the contact details
 summary: default
 tags: [fde]     # bullet needs one of these; earlier tag = higher in the list
-max_bullets_per_position: 10
+max_bullets_per_position: 7
 exclude_positions: [ing]      # position ids from data/career.yaml
 # Skills block and per-role "Tech:" lines only show these groups, and only skills the listed roles used.
 skill_groups: [llm, evaluation, {label: Data & ML, groups: [ml_engineering, data_engineering]}, engineering, cloud]
@@ -13,5 +13,5 @@ max_tech_per_position: 10     # first N shown skills from each role's `used:` li
 certifications: [Tech Lead Development Programme, Data Engineering Accelerated]   # names from career.yaml
 position_notes:               # extra line under a position, keyed by position id
   ikea: Recommendation from Global Head of AI & Tech, Inter IKEA Group, available on request.
-max_pages: 5
+max_pages: 2
 publish: true                 # also deploy the PDF on the website

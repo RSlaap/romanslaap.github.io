@@ -27,7 +27,8 @@
     .position-tech { color: #555; margin-top: 2px; }
     .languages { margin-top: 5px; }
     .clients { margin: 5px 0 0 14px; }
-    .client { margin-bottom: 6px; }
+    .client { margin-bottom: 6px; break-inside: avoid; }
+    .position:has(.clients) { break-inside: auto; }   /* let a long employer block split between its client projects */
     .client .position-title { font-weight: 600; }
     .position-note { margin-top: 3px; color: #555; font-style: italic; }
     .entry-detail { color: #555; margin: -2px 0 3px; }

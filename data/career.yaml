@@ -69,14 +69,12 @@ experience:
         date: March 2024 - September 2026
         company: Inter IKEA Group | Roman Slaap Data & AI Consultancy (self-employed)
         bullets:
-          - text: Built and managed an agentic AI platform in Python piloted with 40 regular users in 2 stores and over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
-            tags: [fde]
           - text: Built and managed an agentic AI platform, piloted with 40 regular users in 2 stores and reaching over 100 unique users in total, cutting the time to find the information they needed from 1 to 3 minutes of manual searching to about 30 seconds.
-            tags: [mle, ds]
-            site: false
+            tags: [fde, mle, ds]
+          - text: Hired as the ML and generative AI expert and technical decision maker, choosing the technology stack and models.
+            tags: [fde, mle, ds]
           - text: Built evaluation sets from user feedback, frequent questions and the questions experts deemed important to get right, and used them with observability and prompt optimization to measure response quality and improve the agent over time.
-            tags: [mle, ds]
-            site: false
+            tags: [fde, mle, ds]
           - text: "Containerized every service with Docker, deployed the backend infrastructure with Terraform and shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
             tags: [mle]
             site: false
@@ -86,8 +84,6 @@ experience:
             tags: [fde]
           - text: Designed a modular agentic architecture connecting 8+ knowledge sources behind one interface, working with stakeholders to prioritize which sources to integrate first.            
             tags: [fde, mle]
-          - text: Implemented model observability, evaluation, and prompt optimization to monitor model behavior, measure response quality, and continuously improve agent performance.
-            tags: [fde]
           - text: "Shipped through GitHub Actions: every pull request had to pass the full test suite, and releases moved through multiple environments with automated pass/fail checks and human testing."
             tags: [ds]
             site: false
@@ -106,12 +102,12 @@ experience:
         bullets:
           - text: Wrote 2 technical proposals for prospective clients; both became signed statements of work, leading to the Mondelez and Mercedes-Benz projects.
             tags: [fde]
-          - text: Delivered client projects across data science, ML engineering and generative AI, from problem definition to production.
-            tags: [fde, mle]
-          - text: Coached 2 junior engineers during a client project on software engineering and ML engineering practices.
-            tags: [mle, fde, ds]
-          - text: Led the office's lunch and learn program, bringing in speakers from inside and outside the company several times a month, and gave talks on AI and data science for colleagues.
-            tags: [fde]
+          - text: Team lead for 2 junior engineers on the Mercedes-Benz project, coaching them in software and ML engineering; one became a cloud engineer at Google, the other a senior developer at Thoughtworks.
+            tags: [fde, mle, ds]
+          - text: Led the office's biweekly lunch and learn program with internal and external speakers, and organized and hosted the MLOps & Crafts meetup (2 workshops, about 50 attendees each).
+            tags: [fde, mle, ds]
+          - text: Gave the Data Mesh keynote with Thoughtworks' head of engineering at Blipz on the Radar 2022 (tech conference, Utrecht), and ran trainings for colleagues on software engineering best practices and ML engineering fundamentals.
+            tags: [fde, mle, ds]
         used: [stakeholder-management, client-acquisition, proposal-writing, presenting, coaching, community-building]
 
   - id: mercedes
@@ -126,19 +122,13 @@ experience:
         bullets:
           - text: Took a proof of concept to a production system on AWS in 6 months, giving pricing analysts near real-time competitor prices in place of manual lookups on competitor websites and in PDFs.
             tags: [fde, mle, ds]
-          - text: Built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
-            tags: [fde]
           - text: Designed the model architecture and built the pipeline end to end, from gathering unstructured competitor data (websites and PDFs) through processing and modeling to automated retraining and monitoring.
-            tags: [mle, ds]
-            site: false
+            tags: [fde, mle, ds]
           - text: Containerized the models with Docker, deployed them with AWS SageMaker and automated builds and releases with GitLab CI.
             tags: [mle]
             site: false
-          - text: Car-part matching accuracy increased from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
-            tags: [fde]
           - text: Raised car-part matching accuracy from 30% to over 90% on a hold-out test set within 2 months, using multiple rounds of analyst corrections fed into automated retraining.
-            tags: [mle, ds]
-            site: false
+            tags: [fde, mle, ds]
         stack: Python, AWS (container hosting, storage, monitoring)
         
         used: [python, aws, sagemaker, docker, gitlab-ci, predictive-modeling, human-in-the-loop, retraining, model-monitoring, system-architecture]
@@ -153,11 +143,8 @@ experience:
         client_of: thoughtworks
         summary: Developing a new recipe took many costly rounds of testing with product experts and consumer panels.
         bullets:
-          - text: Built generative and Bayesian optimization models to help product experts optimize recipe formulations with extremely small datasets (fewer than 20 data points).
-            tags: [fde]
-          - text: Built generative and Bayesian optimization models, with Gaussian processes choosing which candidate recipes to test next, helping product experts optimize recipes from fewer than 20 data points.
-            tags: [ds]
-            site: false
+          - text: Built generative and Bayesian optimization models, with Gaussian processes choosing which recipes to test next, so product experts needed fewer test rounds to optimize recipes from under 20 data points.
+            tags: [fde, ds]
           - text: Combined a generative adversarial architecture with human-in-the-loop input from experts and consumer test panels.
             tags: [fde]
 
@@ -176,11 +163,8 @@ experience:
         date: January 2021 - 2022
         company: Nationale Nederlanden, Rotterdam
         bullets:
-          - text: Delivered statistical modeling and data science solutions for the Life & Pensions business unit.
-            tags: [fde]
           - text: Built models that forecast the probability and size of insurance damages (claim frequency and severity), backtested on later time periods than they were trained on (out-of-time validation), used to set risk premiums and commercial prices across multiple product lines under strict regulatory constraints.
-            tags: [ds]
-            site: false
+            tags: [ds, fde]
           - text: Benchmarked the explainable linear production models against gradient boosting (XGBoost) to measure what explainability cost in accuracy, and used XGBoost for experiments and internal models.
             tags: [ds]
             site: false
@@ -239,12 +223,12 @@ experience:
         company: ING, Amsterdam
         bullets:
           - text: Anomaly detection in transaction-based data
-            tags: [fde, mle]
+            tags: []   # website only
           - text: Built LSTM models that forecast expected transaction behaviour over time and flagged anomalies as deviations from the forecast, working with sensitive (PII) transaction data.
             tags: [ds]
             site: false
           - text: Thesis internship
-            tags: [fde, mle]
+            tags: []   # website only
         used: [python, forecasting, time-series, lstm, anomaly-detection, pii]
 
 education:
